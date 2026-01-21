@@ -3,10 +3,11 @@ import React from 'react';
 import { machines } from '../machineData';
 import { Machine } from '../types';
 import { Tractor, Mail, Phone, Settings, CheckSquare } from 'lucide-react';
+import { resolveAssetUrl } from '../utils/asset';
 
 const BrochurePage: React.FC = () => {
   const featuredTransplanter = machines.find(m => m.model === '2ZBZ-1 / 2ZBZ-2');
-  const featuredRidgingMachine = machines.find(m => m.model === '双垄起垄机带覆膜功能');
+  const featuredRidgingMachine = machines.find(m => m.name === 'Double Ridge Machine with Mulching');
 
   const allInOneMachine: Machine = {
     type: 'Transplanter',
@@ -29,7 +30,7 @@ const BrochurePage: React.FC = () => {
     if (machine.model === '2ZBZ-1 / 2ZBZ-2') {
         imageUrl = '/media/self_propelled_transplanter/微信图片_20241225191128.jpg'; // Specific new image
         // imageUrl = '/media/three_four_row_transplanter/变速箱移栽机三行带覆膜功能3.jpg'; // Specific new image
-    } else if (machine.model === '双垄起垄机带覆膜功能') {
+    } else if (machine.name === 'Double Ridge Machine with Mulching') {
         imageUrl = '/media/ridging_machine/双垄覆膜一体机.jpg'; // Specific new image
     } else if (machine.model === 'HY-AIO-4') {
         imageUrl = '/media/ridge_transplant.png'; // Specific new image
@@ -39,7 +40,7 @@ const BrochurePage: React.FC = () => {
     return (
         <div key={machine.model} className="machine-card-brochure">
         <img 
-            src={imageUrl} 
+            src={resolveAssetUrl(imageUrl)} 
             alt={machine.name} 
             className="machine-image-brochure" 
         />
@@ -236,8 +237,8 @@ const BrochurePage: React.FC = () => {
         <h2>Ready to Boost Your Productivity?</h2>
         <p>Contact our experts for a personalized quote and discover the perfect machine for your needs.</p>
         <div className="contact-info-brochure">
-            <div className="contact-item-brochure"><Mail size={20} /> info@hyphai-agri.com</div>
-            <div className="contact-item-brochure"><Phone size={20} /> +1 (555) 123-4567</div>
+            <div className="contact-item-brochure"><Mail size={20} /> info@hyphai.us</div>
+            <div className="contact-item-brochure"><Phone size={20} /> 434 409 9430</div>
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Layers, PackageSearch, FileQuestion } from 'lucide-react';
+import { resolveAssetUrl } from '../utils/asset';
 
 type View = 'guide' | 'service' | 'catalog';
 
@@ -15,7 +16,7 @@ export const HomePage: React.FC<{ setView: (view: View) => void, logEvent: (even
     <div className="animate-in fade-in duration-700">
       <div className="relative h-[60vh] md:h-[70vh] flex items-center justify-center text-white text-center px-6 overflow-hidden">
         <video 
-          src="/hero-transplanter-video.mp4" 
+          src={resolveAssetUrl('/hero-transplanter-video.mp4')} 
           autoPlay 
           loop 
           muted 

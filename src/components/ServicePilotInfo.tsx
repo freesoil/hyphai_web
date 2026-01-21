@@ -134,7 +134,7 @@ const ServicePilotInfo: React.FC<Props> = ({ onBack, configSummary }) => {
                 <label className="text-xs font-bold uppercase text-slate-400 tracking-widest">Phone Number</label>
                 <input 
                   type="tel" 
-                  placeholder="(503) 555-0123"
+                  placeholder="434 409 9430"
                   required
                   className="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 outline-none"
                   value={formData.phone}

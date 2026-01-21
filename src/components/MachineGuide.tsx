@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronRight, RefreshCw, ArrowLeft } from 'lucide-react';
 import { machines, Machine } from '../machineData';
+import { resolveAssetUrl } from '../utils/asset';
 
 type Step = 'machineType' | 'transplanterScale' | 'tractorPower' | 'ridgeRows' | 'ridgeFunctions' | 'result';
 
@@ -146,15 +147,16 @@ const QuestionStep: React.FC<{ title: string; children: React.ReactNode; onBack:
 
 const OptionCard: React.FC<{ title: string; imageUrl: string; onClick: () => void }> = ({ title, imageUrl, onClick }) => {
   const isVideo = imageUrl.endsWith('.mp4');
+  const mediaUrl = resolveAssetUrl(imageUrl);
   return (
     <div
       onClick={onClick}
       className="bg-white rounded-2xl shadow-lg border border-stone-100 hover:shadow-xl hover:border-orange-300 hover:-translate-y-1 transition-all cursor-pointer group overflow-hidden"
     >
       {isVideo ? (
-        <video src={imageUrl} autoPlay loop muted playsInline className="w-full h-40 object-cover" />
+        <video src={mediaUrl} autoPlay loop muted playsInline className="w-full h-40 object-cover" />
       ) : (
-        <img src={imageUrl} alt={title} className="w-full h-40 object-cover" />
+        <img src={mediaUrl} alt={title} className="w-full h-40 object-cover" />
       )}
       <div className="p-6">
         <h3 className="text-lg font-semibold text-stone-800">{title}</h3>
@@ -185,6 +187,7 @@ const Results: React.FC<{ machines: Machine[], reset: () => void, onMachineSelec
 
 const MachineResultCard: React.FC<{ machine: Machine, onSelect: (machine: Machine) => void }> = ({ machine, onSelect }) => {
   const isVideo = machine.imageUrls[0].endsWith('.mp4');
+  const mediaUrl = resolveAssetUrl(machine.imageUrls[0]);
   return (
     <div 
       className="bg-white rounded-3xl shadow-lg border border-stone-100 text-left overflow-hidden group cursor-pointer transition-all hover:shadow-xl hover:-translate-y-1"
@@ -192,9 +195,9 @@ const MachineResultCard: React.FC<{ machine: Machine, onSelect: (machine: Machin
     >
       <div className="h-48 overflow-hidden">
         {isVideo ? (
-          <video src={machine.imageUrls[0]} autoPlay loop muted playsInline className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+          <video src={mediaUrl} autoPlay loop muted playsInline className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
         ) : (
-          <img src={machine.imageUrls[0]} alt={machine.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+          <img src={mediaUrl} alt={machine.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
         )}
       </div>
       <div className="p-6">

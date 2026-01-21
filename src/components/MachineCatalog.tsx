@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { machines, Machine } from '../machineData';
 import { ListFilter, Search } from 'lucide-react';
+import { resolveAssetUrl } from '../utils/asset';
 
 type MachineType = 'All' | 'Transplanter' | 'Ridging Machine';
 
@@ -75,6 +76,7 @@ export const MachineCatalog: React.FC<MachineCatalogProps> = ({ onMachineSelect 
 
 const MachineCard: React.FC<{ machine: Machine, onSelect: () => void }> = ({ machine, onSelect }) => {
   const isVideo = machine.imageUrls[0].endsWith('.mp4');
+  const mediaUrl = resolveAssetUrl(machine.imageUrls[0]);
   return (
     <div 
       className="bg-white rounded-3xl shadow-lg border border-stone-100 text-left overflow-hidden group cursor-pointer transition-all hover:shadow-xl hover:-translate-y-1"
@@ -82,9 +84,9 @@ const MachineCard: React.FC<{ machine: Machine, onSelect: () => void }> = ({ mac
     >
       <div className="h-48 overflow-hidden">
         {isVideo ? (
-          <video src={machine.imageUrls[0]} autoPlay loop muted playsInline className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+          <video src={mediaUrl} autoPlay loop muted playsInline className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
         ) : (
-          <img src={machine.imageUrls[0]} alt={machine.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+          <img src={mediaUrl} alt={machine.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
         )}
       </div>
       <div className="p-6">

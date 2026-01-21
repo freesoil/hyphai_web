@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Machine } from '../machineData';
 import { ArrowLeft, FileText, Users, Wind, Check, ChevronRight } from 'lucide-react';
+import { resolveAssetUrl } from '../utils/asset';
 
 interface MachineDetailProps {
   machine: Machine;
@@ -14,6 +15,7 @@ export const MachineDetail: React.FC<MachineDetailProps> = ({ machine, onBack, o
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const currentMedia = machine.imageUrls[currentImageIndex];
   const isVideo = currentMedia.endsWith('.mp4');
+  const currentMediaUrl = resolveAssetUrl(currentMedia);
 
   const splitFeatures = (features: string) => {
     return features.split('.').map(f => f.trim()).filter(f => f.length > 0);
@@ -32,9 +34,9 @@ export const MachineDetail: React.FC<MachineDetailProps> = ({ machine, onBack, o
             {/* Main Media Viewer */}
             <div className="rounded-3xl overflow-hidden shadow-2xl border border-stone-200 aspect-video">
               {isVideo ? (
-                <video src={currentMedia} autoPlay loop muted controls playsInline className="w-full h-full object-cover" />
+                <video src={currentMediaUrl} autoPlay loop muted controls playsInline className="w-full h-full object-cover" />
               ) : (
-                <img src={currentMedia} alt={machine.name} className="w-full h-full object-cover" />
+                <img src={currentMediaUrl} alt={machine.name} className="w-full h-full object-cover" />
               )}
             </div>
 
@@ -43,6 +45,7 @@ export const MachineDetail: React.FC<MachineDetailProps> = ({ machine, onBack, o
               <div className="flex gap-3 overflow-x-auto pb-2">
                 {machine.imageUrls.map((mediaUrl, index) => {
                   const isThumbVideo = mediaUrl.endsWith('.mp4');
+                  const resolvedMediaUrl = resolveAssetUrl(mediaUrl);
                   return (
                     <div
                       key={index}
@@ -51,13 +54,13 @@ export const MachineDetail: React.FC<MachineDetailProps> = ({ machine, onBack, o
                     >
                       {isThumbVideo ? (
                         <div className="relative w-full h-full">
-                           <video src={mediaUrl} muted playsInline className="w-full h-full object-cover" />
+                           <video src={resolvedMediaUrl} muted playsInline className="w-full h-full object-cover" />
                            <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
                               <ChevronRight className="w-6 h-6 text-white/70"/>
                            </div>
                         </div>
                       ) : (
-                        <img src={mediaUrl} alt={`${machine.name} thumbnail ${index + 1}`} className="w-full h-full object-cover" />
+                        <img src={resolvedMediaUrl} alt={`${machine.name} thumbnail ${index + 1}`} className="w-full h-full object-cover" />
                       )}
                     </div>
                   );
