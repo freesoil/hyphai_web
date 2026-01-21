@@ -1,0 +1,7 @@
+{
+  "name": "AgriTech Solutions - Consultative Platform",
+  "description": "A high-end engineering-focused platform for vegetable and fruit growers to configure custom agricultural equipment, track builds, and access specialized services with a trust-centered design.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
