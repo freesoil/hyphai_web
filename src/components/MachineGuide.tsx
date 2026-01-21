@@ -79,38 +79,38 @@ export const MachineGuide: React.FC<MachineGuideProps> = ({ logEvent, onMachineS
       case 'machineType':
         return (
           <QuestionStep title="What type of machine are you looking for?" onBack={handleBack} showBack={history.length > 1}>
-            <OptionCard title="Transplanter" imageUrl={machines.find(m => m.type === 'Transplanter')?.imageUrls[0] || '/hero-transplanter.jpg'} onClick={() => handleAnswer('machineType', 'Transplanter', 'transplanterScale', 'Selected: Transplanter')} />
-            <OptionCard title="Ridging Machine" imageUrl={machines.find(m => m.type === 'Ridging Machine')?.imageUrls[0] || '/ridging-machine-double-mulch.jpg'} onClick={() => handleAnswer('machineType', 'Ridging Machine', 'ridgeRows', 'Selected: Ridging Machine')} />
+            <OptionCard title="Transplanter" imageUrl={machines.find(m => m.type === 'Transplanter')?.imageUrls[0] || resolveAssetUrl('/hero-transplanter.jpg')} onClick={() => handleAnswer('machineType', 'Transplanter', 'transplanterScale', 'Selected: Transplanter')} />
+            <OptionCard title="Ridging Machine" imageUrl={machines.find(m => m.type === 'Ridging Machine')?.imageUrls[0] || resolveAssetUrl('/ridging-machine-double-mulch.jpg')} onClick={() => handleAnswer('machineType', 'Ridging Machine', 'ridgeRows', 'Selected: Ridging Machine')} />
           </QuestionStep>
         );
       case 'transplanterScale':
         return (
           <QuestionStep title="What is the scale of your operation?" onBack={handleBack} showBack={history.length > 1}>
-            <OptionCard title="Small Scale / Hills / Greenhouse" imageUrl={machines.find(m => m.category === 'Self-Propelled')?.imageUrls[0] || '/transplanter-self-propelled.jpg'} onClick={() => handleAnswer('transplanterScale', 'small', 'result', 'Selected: Small Scale')} />
-            <OptionCard title="Large Scale / Flat Fields" imageUrl={machines.find(m => m.category === 'Tractor-Pulled')?.imageUrls[0] || '/transplanter-4-row.jpg'} onClick={() => handleAnswer('transplanterScale', 'large', 'tractorPower', 'Selected: Large Scale')} />
+            <OptionCard title="Small Scale / Hills / Greenhouse" imageUrl={machines.find(m => m.category === 'Self-Propelled')?.imageUrls[0] || resolveAssetUrl('/transplanter-self-propelled.jpg')} onClick={() => handleAnswer('transplanterScale', 'small', 'result', 'Selected: Small Scale')} />
+            <OptionCard title="Large Scale / Flat Fields" imageUrl={machines.find(m => m.category === 'Tractor-Pulled')?.imageUrls[0] || resolveAssetUrl('/transplanter-4-row.jpg')} onClick={() => handleAnswer('transplanterScale', 'large', 'tractorPower', 'Selected: Large Scale')} />
           </QuestionStep>
         );
       case 'tractorPower':
         return (
           <QuestionStep title="What is the horsepower of your tractor?" onBack={handleBack} showBack={history.length > 1}>
-            <OptionCard title="40-70 HP" imageUrl={machines.find(m => m.model === '2ZBX-2 / 2ZBX-2A')?.imageUrls[0] || '/transplanter-4-row.jpg'} onClick={() => handleAnswer('tractorPower', '40-70', 'result', 'Selected: 40-70 HP')} />
-            <OptionCard title="70 HP or more" imageUrl={machines.find(m => m.model === '2ZBX-3 / 2ZBX-4')?.imageUrls[0] || '/transplanter-4-row.jpg'} onClick={() => handleAnswer('tractorPower', '70+', 'result', 'Selected: 70+ HP')} />
+            <OptionCard title="40-70 HP" imageUrl={machines.find(m => m.model === '2ZBX-2 / 2ZBX-2A')?.imageUrls[0] || resolveAssetUrl('/transplanter-4-row.jpg')} onClick={() => handleAnswer('tractorPower', '40-70', 'result', 'Selected: 40-70 HP')} />
+            <OptionCard title="70 HP or more" imageUrl={machines.find(m => m.model === '2ZBX-3 / 2ZBX-4')?.imageUrls[0] || resolveAssetUrl('/transplanter-4-row.jpg')} onClick={() => handleAnswer('tractorPower', '70+', 'result', 'Selected: 70+ HP')} />
           </QuestionStep>
         );
       case 'ridgeRows':
         return (
           <QuestionStep title="How many ridges do you want to create at once?" onBack={handleBack} showBack={history.length > 1}>
-            <OptionCard title="Single Ridge" imageUrl={machines.find(m => m.name === 'Single Ridge Machine')?.imageUrls[0] || '/ridging-machine-single.jpg'} onClick={() => handleAnswer('ridgeRows', 'single', 'result', 'Selected: Single Ridge')} />
-            <OptionCard title="Double Ridge" imageUrl={machines.find(m => m.name === 'Double Ridge Machine')?.imageUrls[0] || '/ridging-machine-double.mp4'} onClick={() => handleAnswer('ridgeRows', 'double', 'ridgeFunctions', 'Selected: Double Ridge')} />
+            <OptionCard title="Single Ridge" imageUrl={machines.find(m => m.name === 'Single Ridge Machine')?.imageUrls[0] || resolveAssetUrl('/ridging-machine-single.jpg')} onClick={() => handleAnswer('ridgeRows', 'single', 'result', 'Selected: Single Ridge')} />
+            <OptionCard title="Double Ridge" imageUrl={machines.find(m => m.name === 'Double Ridge Machine')?.imageUrls[0] || resolveAssetUrl('/ridging-machine-double.mp4')} onClick={() => handleAnswer('ridgeRows', 'double', 'ridgeFunctions', 'Selected: Double Ridge')} />
           </QuestionStep>
         );
       case 'ridgeFunctions':
         return (
           <QuestionStep title="Do you need additional functions?" onBack={handleBack} showBack={history.length > 1}>
-            <OptionCard title="Just Ridging (Double Row)" imageUrl={machines.find(m => m.name === 'Double Ridge Machine')?.imageUrls[0] || '/ridging-machine-double.mp4'} onClick={() => handleAnswer('ridgeFunctions', 'none', 'result', 'Selected: Just Double Ridging')} />
-            <OptionCard title="Mulching (Film Covering)" imageUrl={machines.find(m => m.name === 'Double Ridge with Mulching')?.imageUrls[0] || '/ridging-machine-double-mulch.jpg'} onClick={() => handleAnswer('ridgeFunctions', 'mulching', 'result', 'Selected: Mulching')} />
-            <OptionCard title="All-in-one (Seeding)" imageUrl={machines.find(m => m.name === 'Vegetable Ridging, Mulching, and Seeding Machine')?.imageUrls[0] || '/vegetable-all-in-one.mp4'} onClick={() => handleAnswer('ridgeFunctions', 'all-in-one', 'result', 'Selected: Mulching and Seeding')} />
-            <OptionCard title="Specialized (Onion)" imageUrl={machines.find(m => m.name === 'Onion Mulching and Hole Punching Machine')?.imageUrls[0] || '/onion-mulch-punch.mp4'} onClick={() => handleAnswer('ridgeFunctions', 'specialized', 'result', 'Selected: Mulching and Hole Punching')} />
+            <OptionCard title="Just Ridging (Double Row)" imageUrl={machines.find(m => m.name === 'Double Ridge Machine')?.imageUrls[0] || resolveAssetUrl('/ridging-machine-double.mp4')} onClick={() => handleAnswer('ridgeFunctions', 'none', 'result', 'Selected: Just Double Ridging')} />
+            <OptionCard title="Mulching (Film Covering)" imageUrl={machines.find(m => m.name === 'Double Ridge with Mulching')?.imageUrls[0] || resolveAssetUrl('/ridging-machine-double-mulch.jpg')} onClick={() => handleAnswer('ridgeFunctions', 'mulching', 'result', 'Selected: Mulching')} />
+            <OptionCard title="All-in-one (Seeding)" imageUrl={machines.find(m => m.name === 'Vegetable Ridging, Mulching, and Seeding Machine')?.imageUrls[0] || resolveAssetUrl('/vegetable-all-in-one.mp4')} onClick={() => handleAnswer('ridgeFunctions', 'all-in-one', 'result', 'Selected: Mulching and Seeding')} />
+            <OptionCard title="Specialized (Onion)" imageUrl={machines.find(m => m.name === 'Onion Mulching and Hole Punching Machine')?.imageUrls[0] || resolveAssetUrl('/onion-mulch-punch.mp4')} onClick={() => handleAnswer('ridgeFunctions', 'specialized', 'result', 'Selected: Mulching and Hole Punching')} />
           </QuestionStep>
         );
       case 'result':

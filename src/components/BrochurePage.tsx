@@ -20,7 +20,7 @@ const BrochurePage: React.FC = () => {
         'Required Power': '≥90 horsepower',
     },
     features: 'A fully integrated solution that performs ridging, lays drip irrigation lines, applies pelleted fertilizer, and transplants seedlings in a single pass. Maximize your efficiency and reduce field preparation time significantly.',
-    imageUrls: ['/media/pineapple_transplanter/菠萝四行起垄覆膜移栽施肥一体机5.jpg'], // Changed image
+    imageUrls: [resolveAssetUrl('/media/pineapple_transplanter/菠萝四行起垄覆膜移栽施肥一体机5.jpg')], // Changed image
   };
 
   const renderMachine = (machine?: Machine) => {
@@ -28,12 +28,12 @@ const BrochurePage: React.FC = () => {
     let imageUrl = machine.imageUrls.find(url => url.endsWith('.jpg'));
     // Fallback if no JPG is found, or for specific machines
     if (machine.model === '2ZBZ-1 / 2ZBZ-2') {
-        imageUrl = '/media/self_propelled_transplanter/微信图片_20241225191128.jpg'; // Specific new image
-        // imageUrl = '/media/three_four_row_transplanter/变速箱移栽机三行带覆膜功能3.jpg'; // Specific new image
+        imageUrl = resolveAssetUrl('/media/self_propelled_transplanter/微信图片_20241225191128.jpg'); // Specific new image
+        // imageUrl = resolveAssetUrl('/media/three_four_row_transplanter/变速箱移栽机三行带覆膜功能3.jpg'); // Specific new image
     } else if (machine.name === 'Double Ridge Machine with Mulching') {
-        imageUrl = '/media/ridging_machine/双垄覆膜一体机.jpg'; // Specific new image
+        imageUrl = resolveAssetUrl('/media/ridging_machine/双垄覆膜一体机.jpg'); // Specific new image
     } else if (machine.model === 'HY-AIO-4') {
-        imageUrl = '/media/ridge_transplant.png'; // Specific new image
+        imageUrl = resolveAssetUrl('/media/ridge_transplant.png'); // Specific new image
     }
     if (!imageUrl) imageUrl = machine.imageUrls[0]; // Fallback to first if still nothing
 

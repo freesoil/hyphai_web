@@ -170,6 +170,7 @@ export const machines: Machine[] = [
       '/media/ridging_machine/单垄起垄机2.jpg',
       '/media/ridging_machine/单垄起垄机3.jpg',
     ],
+
     inferred: true
   },
   {
