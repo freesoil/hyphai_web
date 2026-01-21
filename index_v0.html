@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HYPHAI — Technology Rooted in Nature</title>
+  <meta name="description" content="Agriculture robotics blending AI, automation, and sustainability to empower those who feed the world." />
+  <meta property="og:title" content="HYPHAI — Technology Rooted in Nature" />
+  <meta property="og:description" content="Intelligent, sustainable farming powered by robotics and AI." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#F6C945" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;800&family=Zilla+Slab:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      /* Vibrant nature palette */
+      --sun: #F6C945;       /* sunlit yellow */
+      --leaf: #2F9E44;      /* fresh green */
+      --leaf-ink:#1C6E30;
+      --earth:#8B5E3C;      /* earthy brown */
+      --cream:#FFFBF2;      /* warm background */
+      --paper:#FFFDF7;
+      --ink:#1C1A16;
+      --muted:#6C6A66;
+      --ring: rgba(47,158,68,.25);
+
+      --radius: 14px;
+      --maxw: 1120px;
+      --shadow: 0 10px 30px rgba(28,26,22,.08);
+      --shadow-strong: 0 20px 50px rgba(28,26,22,.14);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family: "Manrope", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height:1.6;
+      color:var(--ink);
+      background: linear-gradient(180deg, var(--cream), var(--paper) 60%, #fff 100%);
+      overflow-x:hidden;
+    }
+    a{color:var(--leaf-ink); text-decoration:none;}
+    a:hover{ text-decoration:underline; }
+    .wrap{max-width:var(--maxw); margin-inline:auto; padding-inline:24px;}
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: saturate(140%) blur(8px);
+      background: rgba(255,253,247,.8);
+      border-bottom: 1px solid rgba(139,94,60,.08);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px; padding:14px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.2px;
+    }
+    .logo{
+      width:36px; height:36px; border-radius:10px;
+      background:
+        radial-gradient(120% 120% at 20% 10%, #fff 0 20%, transparent 21%),
+        conic-gradient(from 180deg at 70% 70%, var(--leaf) 0 60deg, var(--sun) 60deg 220deg, var(--earth) 220deg 360deg);
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,.6), var(--shadow);
+    }
+    .nav a.btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 16px; border-radius:999px; font-weight:600;
+      background:var(--leaf); color:#fff; border:2px solid transparent;
+      box-shadow: var(--shadow);
+    }
+    .nav a.btn:hover{ transform: translateY(-1px); box-shadow: var(--shadow-strong); text-decoration:none; }
+    .nav a.ghost{
+      background:transparent; color:var(--leaf-ink);
+      border-color: rgba(47,158,68,.35);
+    }
+
+    /* Hero */
+    .hero{
+      position:relative; isolation:isolate;
+      padding:72px 0 48px;
+    }
+    .hero-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:32px; align-items:center;}
+    .kicker{color:var(--leaf-ink); font-weight:800; letter-spacing:.24em; text-transform:uppercase; font-size:.8rem}
+    h1{
+      font-family:"Zilla Slab", Georgia, serif;
+      font-weight:600; line-height:1.1; margin:.25em 0 .4em;
+      font-size: clamp(2rem, 4.2vw, 3.4rem);
+    }
+    .lead{font-size: clamp(1.05rem, 1.3vw, 1.2rem); color:var(--muted); max-width:58ch}
+    .hero-card{
+      background:#fff; border-radius:var(--radius); padding:18px; box-shadow:var(--shadow);
+      display:grid; grid-template-columns:72px 1fr; gap:14px; align-items:center; border:1px solid rgba(28,26,22,.06);
+    }
+    .badge{
+      width:72px; height:72px; border-radius:14px;
+      background: radial-gradient(circle at 30% 30%, #fff 0 25%, transparent 26%), linear-gradient(135deg, var(--sun), var(--leaf));
+      display:grid; place-items:center; color:#fff; font-weight:800;
+      box-shadow: var(--shadow);
+    }
+    .hero-media{
+      position:relative; aspect-ratio: 4/3; border-radius:20px; overflow:hidden;
+      box-shadow: var(--shadow-strong); border:1px solid rgba(28,26,22,.08);
+    }
+    .hero-media img{ width:100%; height:100%; object-fit:cover; display:block; filter:saturate(110%) contrast(105%); }
+    .hero-ring{position:absolute; inset:-60px -80px auto auto; width:420px; height:420px; border-radius:50%;
+      background: radial-gradient(closest-side, rgba(246,201,69,.18), transparent 70%); z-index:-1; }
+
+    /* Sections */
+    section{padding:72px 0;}
+    .panel{
+      background:#fff; border-radius:20px; padding:32px; box-shadow:var(--shadow);
+      border:1px solid rgba(28,26,22,.06);
+    }
+    h2{
+      font-family:"Zilla Slab", Georgia, serif;
+      font-weight:600; font-size: clamp(1.4rem, 2.6vw, 2rem); margin:0 0 12px;
+    }
+    .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+    .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+    .chip{
+      display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px;
+      background:linear-gradient(180deg, #fff, #FFF8E0); border:1px solid rgba(246,201,69,.45); color:#6a541e; font-weight:600;
+    }
+    .check{ width:18px; height:18px; border-radius:50%; background:var(--leaf); color:#fff; display:grid; place-items:center; font-size:.8rem; }
+    .card{
+      border:1px solid rgba(28,26,22,.08); border-radius:16px; background: #FFFEFC; padding:18px; box-shadow: var(--shadow);
+    }
+    .card h3{ margin:.25rem 0 .4rem; font-size:1.05rem; }
+    .muted{color:var(--muted)}
+    .accent{ color:var(--leaf-ink); font-weight:800; }
+    .highlight{ background: linear-gradient(120deg, rgba(246,201,69,.35), rgba(47,158,68,.25)); padding:2px 6px; border-radius:8px; }
+    .stat{
+      display:flex; align-items:baseline; gap:10px; padding:14px; border-radius:14px; background:#FFF9EC; border:1px solid rgba(246,201,69,.45);
+    }
+    .stat b{ font-size:1.6rem; }
+    .gallery{
+      display:grid; grid-template-columns: 1.3fr .7fr; gap:16px;
+    }
+    .gallery img{ width:100%; height:100%; object-fit:cover; border-radius:16px; border:1px solid rgba(28,26,22,.08); box-shadow: var(--shadow); }
+
+    /* Footer */
+    footer{ padding:40px 0 72px; color:#4d4a47; }
+    .footer{
+      display:flex; flex-wrap:wrap; gap:18px; align-items:center; justify-content:space-between;
+      border-top:1px solid rgba(139,94,60,.15); padding-top:22px;
+    }
+    .cta-row{ display:flex; gap:10px; flex-wrap:wrap; }
+    .btn{
+      display:inline-flex; align-items:center; gap:10px; padding:12px 18px; border-radius:999px; font-weight:700;
+      border:2px solid rgba(47,158,68,.35); background:#fff; color:var(--leaf-ink); box-shadow: var(--shadow);
+    }
+    .btn.primary{ background: linear-gradient(180deg, var(--leaf), #22843B); color:#fff; border-color: transparent; }
+    .btn:hover{ transform:translateY(-1px); box-shadow: var(--shadow-strong); text-decoration:none; }
+
+    /* Responsive */
+    @media (max-width: 960px){
+      .hero-grid, .grid-2, .gallery{ grid-template-columns:1fr; }
+      .nav{ gap:8px; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      *{ animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <span>HYPHAI</span>
+      </div>
+      <nav class="cta-row" aria-label="primary">
+        <a class="btn ghost" href="#about">About</a>
+        <a class="btn ghost" href="#work">Work</a>
+        <a class="btn" href="#vision">Vision</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="kicker">Technology Rooted in Nature</span>
+          <h1 id="hero-title">Intelligent robotics for a more resilient food system.</h1>
+          <p class="lead">
+            We blend <span class="highlight">AI, automation, and sustainability</span> to make farming more intelligent, efficient, and enduring — empowering those who feed the world.
+          </p>
+          <div style="height:12px"></div>
+          <div class="hero-card" role="note" aria-label="credibility">
+            <div class="badge">AI</div>
+            <div>
+              <strong>Real-world deployment DNA.</strong>
+              <div class="muted">From autonomous systems recognized at CES to AI flight control in renewable energy, our team bridges frontier research and field realities.</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-media" aria-hidden="true">
+          <!-- Replace with your hero image or video -->
+          <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?q=80&w=1600&auto=format&fit=crop" alt="Sunlit farmland with gentle motion of crops" />
+          <div class="hero-ring"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" aria-labelledby="about-title">
+      <div class="wrap grid-2">
+        <div class="panel">
+          <h2 id="about-title">About Us</h2>
+          <p>
+            We are an agriculture robotics company at the intersection of <strong>AI</strong>, <strong>automation</strong>, and <strong>sustainable farming</strong>. Our mission is simple:
+            <em>to empower growers with accessible, adaptive technology that amplifies human capability.</em>
+          </p>
+          <div style="height:8px"></div>
+          <div class="stat" aria-label="direction">
+            <b>Now working on:</b> <span class="muted">End effector manufacturing and control for <strong>dexterous agricultural operations</strong>.</span>
+          </div>
+          <div style="height:12px"></div>
+          <div class="chip"><span class="check">✓</span> Field-first design</div>
+          <div class="chip"><span class="check">✓</span> Scalable intelligence</div>
+          <div class="chip"><span class="check">✓</span> Sustainability by default</div>
+        </div>
+
+        <!-- Work / Credibility -->
+        <div class="panel" id="work" aria-labelledby="work-title">
+          <h2 id="work-title">Selected Work & Credentials</h2>
+          <div class="grid-3" role="list">
+            <article class="card" role="listitem">
+              <h3>Autonomous Tractor Systems</h3>
+              <p class="muted">Developed and deployed across the U.S. Midwest under a leading global agricultural brand. Recognized with <strong>CES Best of CES (2025)</strong> and <strong>Best of Innovation in Robotics (2023)</strong>.</p>
+            </article>
+            <article class="card" role="listitem">
+              <h3>AI Flight Control for Renewable Energy</h3>
+              <p class="muted">World’s first offshore <abbr title="Unmanned Aerial Vehicle">UAV</abbr> wind system with AI-driven flight control and vertical takeoff/landing — engineered at Google X for airborne wind energy.</p>
+            </article>
+            <article class="card" role="listitem">
+              <h3>Global Commercialization</h3>
+              <p class="muted">Led U.S. market expansions surpassing <strong>$200M</strong> in sales within two years, proving the path from deep tech to durable commercial outcomes.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Challenge -->
+    <section aria-labelledby="challenge-title">
+      <div class="wrap grid-2">
+        <div class="panel">
+          <h2 id="challenge-title">Why This Matters</h2>
+          <p class="muted">Agriculture faces intensifying pressures that technology alone hasn’t solved:</p>
+          <ul>
+            <li><strong>Labor shortages & rising costs</strong> across vital seasonal windows.</li>
+            <li><strong>Inconsistent manual operations</strong> limit quality and scalability.</li>
+            <li><strong>Peak-season bottlenecks</strong> risk yield and product quality.</li>
+            <li><strong>High-cost, rigid automation</strong> confined to narrow use cases.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h2>Our Belief</h2>
+          <p>Robotics and AI should <span class="accent">nurture</span> nature — not replace it. By automating repetitive labor and enhancing precision crop management, we help farms become more productive, adaptive, and resilient.</p>
+          <div class="gallery" aria-hidden="true">
+            <!-- Replace with your own images -->
+            <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=1200&auto=format&fit=crop" alt="Close-up of circuit board evoking robotics" />
+            <img src="https://images.unsplash.com/photo-1461354464878-ad92f492a5a0?q=80&w=800&auto=format&fit=crop" alt="Farmer's hand touching crop leaves" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vision -->
+    <section id="vision" aria-labelledby="vision-title">
+      <div class="wrap">
+        <div class="panel">
+          <h2 id="vision-title">Our Vision</h2>
+          <p>
+            We’re building the foundation for <strong>intelligent, sustainable farming</strong> where robotics and AI work hand-in-hand with growers.
+            The outcome: <strong>greater productivity</strong>, <strong>lower operational strain</strong>, and <strong>more stable, predictable outcomes</strong> across diverse agricultural systems.
+          </p>
+          <div style="height:8px"></div>
+          <div class="grid-3">
+            <div class="card">
+              <h3>Precision</h3>
+              <p class="muted">Data-guided actions that protect soil, crops, and inputs.</p>
+            </div>
+            <div class="card">
+              <h3>Reliability</h3>
+              <p class="muted">Consistent performance through weather, season, and scale.</p>
+            </div>
+            <div class="card">
+              <h3>Accessibility</h3>
+              <p class="muted">Tools designed to meet growers where they work — the field.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact-like CTA (no investor language, just neutral next step) -->
+    <section aria-labelledby="cta-title">
+      <div class="wrap">
+        <div class="panel" style="display:flex; gap:20px; align-items:center; justify-content:space-between; flex-wrap:wrap;">
+          <div>
+            <h2 id="cta-title">Let’s cultivate what’s next.</h2>
+            <p class="muted">Share a little about your operation or partnership idea — we’ll connect the dots.</p>
+          </div>
+          <div class="cta-row">
+            <a class="btn primary" href="mailto:hello@hyphai.ag">Contact</a>
+            <!-- Swap this with your deck once you’re ready to share -->
+            <a class="btn" href="#about">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="wrap footer">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <span>HYPHAI</span>
+      </div>
+      <small>© <span id="year"></span> HYPHAI. All rights reserved.</small>
+    </div>
+  </footer>
+
+  <script>
+    // Set current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Subtle reveal animation on scroll (accessibility-aware)
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!prefersReduced){
+      const els = document.querySelectorAll('.panel, .hero-card, .card, .chip, .hero-media');
+      const obs = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){
+            e.target.animate(
+              [{opacity:0, transform:'translateY(14px)'},{opacity:1, transform:'translateY(0)'}],
+              {duration:500, easing:'cubic-bezier(.2,.7,.2,1)', fill:'forwards'}
+            );
+            obs.unobserve(e.target);
+          }
+        });
+      }, {threshold:.12});
+      els.forEach(el=>obs.observe(el));
+    }
+  </script>
+</body>
+</html>
+
