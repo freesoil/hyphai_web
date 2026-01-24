@@ -25,7 +25,7 @@ import { PilotService } from './components/PilotService';
 
 
 
-import { AnalyticsTracker } from './components/AnalyticsTracker';
+
 
 
 
@@ -438,7 +438,7 @@ export const App: React.FC = () => {
 
 
 
-      <AnalyticsTracker events={analytics} />
+
 
 
 
