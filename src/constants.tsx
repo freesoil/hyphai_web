@@ -2,6 +2,9 @@
 import React from 'react';
 import { ShieldCheck, Truck, Cog, MapPin, ClipboardCheck, Users, Info } from 'lucide-react';
 
+// TODO: Replace with your Google Analytics Measurement ID
+export const GA_MEASUREMENT_ID = "G-HKJYHM5303";
+
 export const STEPS = [
   { title: 'Configuration', icon: <Cog className="w-5 h-5" />, description: 'Find the exact specs for your seasonal crops.' },
   { title: 'Local Demo', icon: <MapPin className="w-5 h-5" />, description: 'See a similar unit working in local soil.' },
