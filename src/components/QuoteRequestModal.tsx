@@ -12,6 +12,7 @@ interface QuoteRequestModalProps {
 export const QuoteRequestModal: React.FC<QuoteRequestModalProps> = ({ machine, onClose, logEvent }) => {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formState, setFormState] = useState({
     name: '',
     email: '',
@@ -27,15 +28,41 @@ export const QuoteRequestModal: React.FC<QuoteRequestModalProps> = ({ machine, o
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formState.name || !formState.email) {
       setError('Please fill in your name and email address.');
       return;
     }
-    logEvent(`Quote request submitted for ${machine.name} by ${formState.name}`);
+    setIsSubmitting(true);
     setError('');
-    setSubmitted(true);
+    try {
+      const response = await fetch('https://formspree.io/f/mpqlvybz', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formState.name,
+          email: formState.email,
+          message: formState.message,
+          machine: `${machine.name} (${machine.model})`,
+          requestType: 'Quote request'
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Form submission failed');
+      }
+
+      logEvent(`Quote request submitted for ${machine.name} by ${formState.name}`);
+      setSubmitted(true);
+    } catch (err) {
+      setError('We could not send your request. Please try again or email us directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -68,8 +95,12 @@ export const QuoteRequestModal: React.FC<QuoteRequestModalProps> = ({ machine, o
                   <div className="flex items-center gap-3 text-sm text-red-600 bg-red-50 p-3 rounded-lg"><AlertTriangle size={20}/><span>{error}</span></div>
                 )}
                 <div>
-                  <button type="submit" className="w-full flex justify-center items-center gap-3 px-6 py-3 border-transparent rounded-lg shadow-sm font-semibold text-white bg-orange-600 hover:bg-orange-700 transition-all">
-                    <Send size={18} /> Submit Request
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full flex justify-center items-center gap-3 px-6 py-3 border-transparent rounded-lg shadow-sm font-semibold text-white bg-orange-600 hover:bg-orange-700 transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                  >
+                    <Send size={18} /> {isSubmitting ? 'Sending...' : 'Submit Request'}
                   </button>
                 </div>
               </form>
