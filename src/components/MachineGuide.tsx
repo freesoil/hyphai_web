@@ -121,7 +121,7 @@ export const MachineGuide: React.FC<MachineGuideProps> = ({ logEvent, onMachineS
   };
 
   return (
-    <div className="bg-orange-50/70 min-h-[80vh] py-20 px-6 animate-in fade-in duration-700">
+    <div className="bg-white/70 min-h-[80vh] py-20 px-6 animate-in fade-in duration-700">
       <div className="max-w-4xl mx-auto">
         {renderStep()}
       </div>
@@ -137,7 +137,7 @@ const QuestionStep: React.FC<{ title: string; children: React.ReactNode; onBack:
           <ArrowLeft size={20} />
         </button>
       )}
-      <h2 className="text-2xl font-bold">{title}</h2>
+      <h2 className="font-display text-2xl">{title}</h2>
     </div>
     <div className="grid md:grid-cols-2 gap-6">
       {children}
@@ -167,8 +167,8 @@ const OptionCard: React.FC<{ title: string; imageUrl: string; onClick: () => voi
 
 const Results: React.FC<{ machines: Machine[], reset: () => void, onMachineSelect: (machine: Machine) => void }> = ({ machines, reset, onMachineSelect }) => (
   <div className="text-center">
-    <h2 className="text-3xl font-bold mb-4">Here are Your Recommended Machines</h2>
-    <p className="text-stone-500 mb-10">Click on a machine to see more details and request a quote or service.</p>
+    <h2 className="font-display text-3xl mb-4">Recommended Equipment</h2>
+    <p className="text-stone-500 mb-10">Click a machine to see details and request a quote or consultation.</p>
     <div className="grid md:grid-cols-2 gap-8 my-10">
       {machines.length > 0 ? (
         machines.map(machine => <MachineResultCard key={machine.model} machine={machine} onSelect={onMachineSelect} />)

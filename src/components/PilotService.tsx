@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Send, Check, AlertTriangle, Wrench, UserCheck } from 'lucide-react';
+import { Send, Check, AlertTriangle, Cpu, ClipboardList } from 'lucide-react';
 import { Machine } from '../machineData';
 
 interface PilotServiceProps {
@@ -11,6 +11,7 @@ interface PilotServiceProps {
 export const PilotService: React.FC<PilotServiceProps> = ({ logEvent, machine }) => {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formState, setFormState] = useState({
     name: '',
     email: '',
@@ -22,7 +23,7 @@ export const PilotService: React.FC<PilotServiceProps> = ({ logEvent, machine })
     if (machine) {
       setFormState(prev => ({
         ...prev,
-        message: `I am interested in the pilot service for the ${machine.name} (${machine.model}).`
+        message: `I would like consultation on integrating the ${machine.name} (${machine.model}) into our workflow.`
       }));
     }
   }, [machine]);
@@ -34,19 +35,46 @@ export const PilotService: React.FC<PilotServiceProps> = ({ logEvent, machine })
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formState.name || !formState.email) {
       setError('Please fill in your name and email address.');
       return;
     }
-    const event = machine 
-      ? `Pilot service form for ${machine.name} submitted by ${formState.name}`
-      : `General pilot service form submitted by ${formState.name}`;
-    logEvent(event);
+    setIsSubmitting(true);
     setError('');
-    setSubmitted(true);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const event = machine
+      ? `Consultation form for ${machine.name} submitted by ${formState.name}`
+      : `General consultation form submitted by ${formState.name}`;
+
+    try {
+      const response = await fetch('https://formspree.io/f/mqelrdep', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formState.name,
+          email: formState.email,
+          farmSize: formState.farmSize,
+          message: formState.message,
+          machine: machine ? `${machine.name} (${machine.model})` : 'General consultation'
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Form submission failed');
+      }
+
+      logEvent(event);
+      setSubmitted(true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (err) {
+      setError('We could not send your request. Please try again or email us directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -57,41 +85,41 @@ export const PilotService: React.FC<PilotServiceProps> = ({ logEvent, machine })
             <div className="flex justify-center items-center bg-amber-100 text-amber-800 w-20 h-20 rounded-full mb-6 mx-auto">
               <Check size={40} />
             </div>
-            <h1 className="text-3xl font-bold text-stone-900 mb-4">Thank You!</h1>
+            <h1 className="font-display text-3xl text-stone-900 mb-4">Thank You!</h1>
             <p className="text-stone-600 text-lg mb-12">
-              Your inquiry has been received. Our team will review your information and get back to you shortly.
+              Your request has been received. We will review the details and follow up with next steps shortly.
             </p>
           </div>
 
           <div className="bg-stone-50/70 p-8 rounded-2xl border border-stone-200">
-            <h3 className="font-bold text-lg text-stone-800 mb-4 text-center">What Happens Next?</h3>
+            <h3 className="font-display text-lg text-stone-800 mb-4 text-center">What Happens Next?</h3>
             <ol className="space-y-4 text-stone-600">
               <li className="flex items-start gap-4">
                 <div className="font-bold text-lg text-orange-600">1.</div>
                 <div>
-                  <h4 className="font-semibold">Feasibility Review</h4>
-                  <p className="text-sm">Our team will assess if your location and needs fit the pilot program's requirements.</p>
+                  <h4 className="font-semibold">Quick Review</h4>
+                  <p className="text-sm">We review your goals, crops, and current tools to understand fit.</p>
                 </div>
               </li>
               <li className="flex items-start gap-4">
                 <div className="font-bold text-lg text-orange-600">2.</div>
                 <div>
-                  <h4 className="font-semibold">Follow-up Call</h4>
-                  <p className="text-sm">If the initial review is positive, we'll schedule a brief call to discuss your operational details.</p>
+                  <h4 className="font-semibold">Short Call</h4>
+                  <p className="text-sm">We will schedule a brief call to understand workflows, labor constraints, and timing.</p>
                 </div>
               </li>
               <li className="flex items-start gap-4">
                 <div className="font-bold text-lg text-orange-600">3.</div>
                 <div>
-                  <h4 className="font-semibold">On-site Visit & Planning</h4>
-                  <p className="text-sm">A field expert may visit your location to plan the execution and logistics.</p>
+                  <h4 className="font-semibold">Farm Context</h4>
+                  <p className="text-sm">If helpful, we will review field conditions, crops, and existing systems.</p>
                 </div>
               </li>
               <li className="flex items-start gap-4">
                 <div className="font-bold text-lg text-orange-600">4.</div>
                 <div>
-                  <h4 className="font-semibold">Service Agreement</h4>
-                  <p className="text-sm">We'll provide a clear agreement with scope and pricing before any work begins.</p>
+                  <h4 className="font-semibold">Actionable Roadmap</h4>
+                  <p className="text-sm">You receive a clear plan with recommended tools, software options, and next steps.</p>
                 </div>
               </li>
             </ol>
@@ -105,13 +133,13 @@ export const PilotService: React.FC<PilotServiceProps> = ({ logEvent, machine })
     <div className="bg-white py-20 px-6 animate-in fade-in duration-700">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold tracking-tighter text-stone-900">
-            {machine ? `Service for ${machine.name}` : 'Hire the Outcome, Not the Tool.'}
+          <h1 className="font-display text-4xl md:text-5xl tracking-tight text-stone-900">
+            {machine ? `Consultation for ${machine.name}` : 'Free Technical Consultation for Specialty Farms'}
           </h1>
           <p className="mt-4 text-lg text-stone-600 max-w-3xl mx-auto">
-            {machine 
-              ? `Submit an inquiry to have our expert team operate the ${machine.name} for you.`
-              : 'Eliminate capital risk and labor headaches. Our expert team brings the specialized machinery to your field and handles the technical execution from fence-to-fence.'
+            {machine
+              ? `Let’s assess fit, integration, and ROI for the ${machine.name} in your operation.`
+              : 'We provide practical guidance on AI, sensors, equipment, and software workflows to reduce labor and improve operational clarity.'
             }
           </p>
         </div>
@@ -119,24 +147,24 @@ export const PilotService: React.FC<PilotServiceProps> = ({ logEvent, machine })
         {!machine && (
           <div className="grid md:grid-cols-2 gap-8 mb-20">
             <div className="bg-stone-50/70 p-8 rounded-2xl border border-stone-200">
-              <div className="flex items-center justify-center bg-indigo-100 text-indigo-800 w-12 h-12 rounded-full mb-4">
-                <Wrench size={24} />
+              <div className="flex items-center justify-center bg-emerald-100 text-emerald-800 w-12 h-12 rounded-full mb-4">
+                <Cpu size={24} />
               </div>
-              <h3 className="text-xl font-bold mb-2">Zero Maintenance</h3>
-              <p className="text-stone-600">We own the downtime risk. You only pay for the completed acre.</p>
+              <h3 className="text-xl font-bold mb-2">Practical ROI First</h3>
+              <p className="text-stone-600">We focus on technology that meaningfully reduces labor or improves quality.</p>
             </div>
             <div className="bg-stone-50/70 p-8 rounded-2xl border border-stone-200">
-              <div className="flex items-center justify-center bg-indigo-100 text-indigo-800 w-12 h-12 rounded-full mb-4">
-                <UserCheck size={24} />
+              <div className="flex items-center justify-center bg-amber-100 text-amber-800 w-12 h-12 rounded-full mb-4">
+                <ClipboardList size={24} />
               </div>
-              <h3 className="text-xl font-bold mb-2">Expert Operators</h3>
-              <p className="text-stone-600">Certified precision drivers who understand your crop's sensitivity.</p>
+              <h3 className="text-xl font-bold mb-2">Crew-First Workflows</h3>
+              <p className="text-stone-600">We design software and processes that are usable in the field.</p>
             </div>
           </div>
         )}
 
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-8">Express Your Interest</h2>
+          <h2 className="font-display text-3xl text-center mb-8">Request a Consultation</h2>
           <div className="bg-stone-50/70 p-8 sm:p-12 rounded-3xl border border-stone-200">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
@@ -167,7 +195,7 @@ export const PilotService: React.FC<PilotServiceProps> = ({ logEvent, machine })
               </div>
               <div>
                 <label htmlFor="farmSize" className="block text-sm font-medium text-stone-700 mb-1">
-                  Farm Size (e.g., Acres, Hectares)
+                  Farm Size + Crops (e.g., 40 acres, leafy greens)
                 </label>
                 <input
                   type="text"
@@ -180,7 +208,7 @@ export const PilotService: React.FC<PilotServiceProps> = ({ logEvent, machine })
               </div>
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-stone-700 mb-1">
-                  Tell us about your needs
+                  Tell us about your operation and goals
                 </label>
                 <textarea
                   name="message"
@@ -202,10 +230,11 @@ export const PilotService: React.FC<PilotServiceProps> = ({ logEvent, machine })
               <div>
                 <button
                   type="submit"
-                  className="w-full flex justify-center items-center gap-3 px-6 py-4 border border-transparent rounded-xl shadow-sm text-base font-medium text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all"
+                  disabled={isSubmitting}
+                  className="w-full flex justify-center items-center gap-3 px-6 py-4 border border-transparent rounded-xl shadow-sm text-base font-medium text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   <Send size={20} />
-                  Submit Inquiry
+                  {isSubmitting ? 'Sending...' : 'Request Consultation'}
                 </button>
               </div>
             </form>

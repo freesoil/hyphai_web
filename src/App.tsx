@@ -9,7 +9,7 @@ import React, { useState } from 'react';
 
 
 
-import { Tractor } from 'lucide-react';
+import { Sprout } from 'lucide-react';
 
 
 
@@ -314,11 +314,11 @@ export const App: React.FC = () => {
 
 
 
-    <div className="min-h-screen flex flex-col font-sans bg-orange-50 text-stone-800">
+    <div className="min-h-screen flex flex-col site-bg text-stone-900">
 
 
 
-      <header className="bg-white/90 backdrop-blur-lg border-b border-stone-100 sticky top-0 z-40 px-6 py-4">
+      <header className="surface border-b border-white/60 sticky top-0 z-40 px-6 py-4">
 
 
 
@@ -330,11 +330,11 @@ export const App: React.FC = () => {
 
 
 
-            <div className="bg-orange-700 p-2 rounded-xl">
+            <div className="bg-emerald-700 p-2 rounded-xl shadow-md">
 
 
 
-              <Tractor className="w-6 h-6 text-white" />
+              <Sprout className="w-6 h-6 text-white" />
 
 
 
@@ -342,7 +342,7 @@ export const App: React.FC = () => {
 
 
 
-            <span className="font-bold text-xl tracking-tighter text-stone-900">Hyphai</span>
+            <span className="font-display font-bold text-xl tracking-tight text-stone-900">Hyphai</span>
 
 
 
@@ -350,7 +350,7 @@ export const App: React.FC = () => {
 
 
 
-                    <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold">
+                    <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold text-stone-700">
 
 
 
@@ -358,15 +358,15 @@ export const App: React.FC = () => {
 
 
 
-                      <button onClick={() => handleSetView('catalog')} className="hover:text-orange-700 transition-colors">All Machines</button>
+                      <button onClick={() => handleSetView('service')} className="hover:text-orange-700 transition-colors">Consultation</button>
 
 
 
-                      <button onClick={() => handleSetView('guide')} className="hover:text-orange-700 transition-colors">Machine Guide</button>
+                      <button onClick={() => handleSetView('catalog')} className="hover:text-orange-700 transition-colors">Equipment</button>
 
 
 
-                      <button onClick={() => handleSetView('service')} className="hover:text-orange-700 transition-colors">Pilot Services</button>
+                      <button onClick={() => handleSetView('guide')} className="hover:text-orange-700 transition-colors">Equipment Guide</button>
 
 
 
@@ -450,7 +450,7 @@ export const App: React.FC = () => {
 
 
 
-        <footer className="bg-stone-800 text-white py-12 px-6">
+        <footer className="bg-stone-900 text-white py-12 px-6">
 
 
 
@@ -462,11 +462,11 @@ export const App: React.FC = () => {
 
 
 
-              <div className="bg-orange-700 p-2 rounded-xl">
+              <div className="bg-emerald-700 p-2 rounded-xl shadow-md">
 
 
 
-                <Tractor className="w-5 h-5 text-white" />
+                <Sprout className="w-5 h-5 text-white" />
 
 
 
@@ -474,7 +474,7 @@ export const App: React.FC = () => {
 
 
 
-              <span className="font-black text-lg tracking-tighter uppercase text-white">Hyphai</span>
+              <span className="font-display font-black text-lg tracking-tight uppercase text-white">Hyphai</span>
 
 
 
@@ -506,7 +506,7 @@ export const App: React.FC = () => {
 
 
 
-            <p className="text-[10px] font-mono text-stone-300">© {new Date().getFullYear()} Hyphai Agricultural Technology. BUILT TO GROW.</p>
+            <p className="text-[10px] font-mono text-stone-300">© {new Date().getFullYear()} Hyphai Agricultural Technology. FARM-FIRST PARTNERSHIP.</p>
 
 
 

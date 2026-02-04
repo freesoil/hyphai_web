@@ -21,11 +21,11 @@ export const MachineCatalog: React.FC<MachineCatalogProps> = ({ onMachineSelect 
   });
 
   return (
-    <div className="bg-orange-50/70 py-20 px-6 animate-in fade-in duration-700">
+    <div className="bg-white/70 py-20 px-6 animate-in fade-in duration-700">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold tracking-tight text-stone-900">Our Machines</h1>
-          <p className="mt-4 text-lg text-stone-600">Browse our full catalog of innovative agricultural solutions.</p>
+          <h1 className="font-display text-4xl tracking-tight text-stone-900">Equipment Library</h1>
+          <p className="mt-4 text-lg text-stone-600">Curated, cost-effective options we can help source and integrate.</p>
         </div>
 
         <div className="mb-10 p-4 bg-white/60 backdrop-blur-sm rounded-2xl shadow-md border border-stone-200 sticky top-24 z-30">
@@ -34,7 +34,7 @@ export const MachineCatalog: React.FC<MachineCatalogProps> = ({ onMachineSelect 
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-stone-400" />
               <input 
                 type="text"
-                placeholder="Search machines..."
+                placeholder="Search equipment..."
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 bg-stone-50 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"

@@ -1,6 +1,6 @@
 {
-  "name": "AgriTech Solutions - Consultative Platform",
-  "description": "A high-end engineering-focused platform for vegetable and fruit growers to configure custom agricultural equipment, track builds, and access specialized services with a trust-centered design.",
+  "name": "Hyphai | Farm-First AgTech Consultation",
+  "description": "A farm-first platform for specialty crop growers to access practical AI, sensor, equipment, and workflow guidance with relationship-centered consultation.",
   "requestFramePermissions": [
     "geolocation"
   ]

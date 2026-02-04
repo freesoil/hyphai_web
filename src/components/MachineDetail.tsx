@@ -119,10 +119,10 @@ export const MachineDetail: React.FC<MachineDetailProps> = ({ machine, onBack, o
                   </div>
                </div>
                 <div className="bg-white p-6 rounded-2xl border border-stone-200 shadow-lg cursor-pointer hover:shadow-2xl transition-shadow" onClick={() => onServiceRequest(machine)}>
-                  <h4 className="font-bold text-lg text-indigo-700">Managed by Experts</h4>
-                  <p className="text-sm text-stone-600 mt-1 mb-3">Let us handle the work. Inquire about having our professional team operate this machine for you.</p>
+                  <h4 className="font-bold text-lg text-indigo-700">Consultation</h4>
+                  <p className="text-sm text-stone-600 mt-1 mb-3">Get guidance on fit, integration, and ROI before investing.</p>
                   <div className="font-bold text-indigo-600 flex items-center">
-                     Inquire about Service <ChevronRight size={18} className="ml-1"/>
+                     Request Consultation <ChevronRight size={18} className="ml-1"/>
                   </div>
                </div>
             </div>
