@@ -1,2 +1,2 @@
-cd src
-npm run dev
+#!/bin/bash
+python3 run.py

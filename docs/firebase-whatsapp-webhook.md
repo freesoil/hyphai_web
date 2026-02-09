@@ -25,14 +25,14 @@ References:
 
 ## Files
 
-- `functions/whatsappWebhook.js` – modular GET/POST handler.
-- `functions/index.js` – Firebase Functions entrypoint.
-- `functions/package.json` – runtime and dependencies.
+- `api/whatsappWebhook.js` – modular GET/POST handler.
+- `api/index.js` – Firebase Functions entrypoint.
+- `api/package.json` – runtime and dependencies.
 
 ## Deploy steps (summary)
 
 1. Set the project id in `.firebaserc`.
-2. `npm install` in `functions/`.
+2. `npm install` in `api/`.
 3. `firebase functions:secrets:set WHATSAPP_VERIFY_TOKEN`
 4. `firebase deploy --only functions`
 

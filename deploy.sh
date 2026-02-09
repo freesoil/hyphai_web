@@ -1,3 +1,3 @@
 #!/bin/bash
-cd src
+cd web
 npm run deploy

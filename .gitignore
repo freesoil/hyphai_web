@@ -1,5 +1,8 @@
 node_modules/
-functions/node_modules/
+api/node_modules/
+web/node_modules/
 dist/
 .env
 .env.*
+.run_history
+.run_command_history
