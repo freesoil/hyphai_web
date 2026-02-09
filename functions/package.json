@@ -1,0 +1,11 @@
+{
+  "name": "hyphai-firebase-functions",
+  "private": true,
+  "main": "index.js",
+  "engines": {
+    "node": "20"
+  },
+  "dependencies": {
+    "firebase-functions": "^4.9.0"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "jarvis-ce674",
+    "jarvis": "jarvis-ce674"
+  },
+  "targets": {},
+  "etags": {}
+}
