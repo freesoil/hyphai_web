@@ -43,12 +43,12 @@ def save_history():
 def print_box(title, body):
     lines = body.splitlines() or [""]
     width = max(len(title), *(len(l) for l in lines)) + 4
-    print(CLR_DIM + "┌" + "─" * (width - 2) + "┐" + CLR_RESET)
-    print(CLR_DIM + "│ " + CLR_RESET + CLR_BOLD + title.ljust(width - 4) + CLR_RESET + CLR_DIM + " │" + CLR_RESET)
-    print(CLR_DIM + "├" + "─" * (width - 2) + "┤" + CLR_RESET)
+    print(CLR_DIM + "+" + "-" * (width - 2) + "+" + CLR_RESET)
+    print(CLR_DIM + "| " + CLR_RESET + CLR_BOLD + title.ljust(width - 4) + CLR_RESET + CLR_DIM + " |" + CLR_RESET)
+    print(CLR_DIM + "+" + "-" * (width - 2) + "+" + CLR_RESET)
     for line in lines:
-        print(CLR_DIM + "│ " + CLR_RESET + line.ljust(width - 4) + CLR_DIM + " │" + CLR_RESET)
-    print(CLR_DIM + "└" + "─" * (width - 2) + "┘" + CLR_RESET)
+        print(CLR_DIM + "| " + CLR_RESET + line.ljust(width - 4) + CLR_DIM + " |" + CLR_RESET)
+    print(CLR_DIM + "+" + "-" * (width - 2) + "+" + CLR_RESET)
 
 
 command_history = []
@@ -207,6 +207,36 @@ def show_config_summary(web_dir, api_dir):
     print_box("config summary", body)
 
 
+def choose_workflow():
+    items = [
+        ("1", "web_local", "Web: local test"),
+        ("2", "web_deploy", "Web: deploy"),
+        ("3", "api_local", "API: local test"),
+        ("4", "api_deploy", "API: deploy"),
+    ]
+    print(CLR_BOLD + "Select what you want to run:" + CLR_RESET)
+    for key, _, label in items:
+        print(f"  {CLR_CYAN}{key}{CLR_RESET}. {label}")
+    print(CLR_DIM + "Enter comma-separated numbers (e.g., 1,4). Press Enter for none." + CLR_RESET)
+    while True:
+        raw = prompt_input("Your selection", default="")
+        if not raw:
+            return {k: False for _, k, _ in items}
+        if raw.startswith("!"):
+            continue
+        tokens = [t.strip() for t in raw.split(",") if t.strip()]
+        if not tokens:
+            return {k: False for _, k, _ in items}
+        valid_keys = {key for key, _, _ in items}
+        if all(t in valid_keys for t in tokens):
+            selections = {k: False for _, k, _ in items}
+            for key, k, _ in items:
+                if key in tokens:
+                    selections[k] = True
+            return selections
+        print(CLR_YELLOW + "Invalid selection. Use only the numbers shown." + CLR_RESET)
+
+
 def main():
     load_history()
     load_command_history()
@@ -220,11 +250,16 @@ def main():
 
         show_config_summary(web_dir, api_dir)
 
+        selections = choose_workflow()
         commands = []
-        commands += build_web_commands(web_dir)
-        commands += build_web_deploy_commands(web_dir)
-        commands += build_api_commands(api_dir)
-        commands += build_api_deploy_commands(repo_root)
+        if selections.get("web_local"):
+            commands += build_web_commands(web_dir)
+        if selections.get("web_deploy"):
+            commands += build_web_deploy_commands(web_dir)
+        if selections.get("api_local"):
+            commands += build_api_commands(api_dir)
+        if selections.get("api_deploy"):
+            commands += build_api_deploy_commands(repo_root)
 
         if not commands:
             print(CLR_YELLOW + "No commands selected. Exiting." + CLR_RESET)
