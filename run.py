@@ -8,6 +8,7 @@ from pathlib import Path
 HISTORY_PATH = Path(".run_history")
 CMD_HISTORY_PATH = Path(".run_command_history")
 HISTORY_MAX = 1000
+CMD_HISTORY_MAX = 100
 
 
 def color(code):
@@ -58,14 +59,14 @@ def load_command_history():
     if CMD_HISTORY_PATH.exists():
         try:
             lines = CMD_HISTORY_PATH.read_text().splitlines()
-            command_history.extend(lines[-HISTORY_MAX:])
+            command_history.extend(lines[-CMD_HISTORY_MAX:])
         except Exception:
             pass
 
 
 def save_command_history():
     try:
-        trimmed = command_history[-HISTORY_MAX:]
+        trimmed = command_history[-CMD_HISTORY_MAX:]
         CMD_HISTORY_PATH.write_text("\n".join(trimmed) + ("\n" if trimmed else ""))
     except Exception:
         pass
@@ -213,6 +214,7 @@ def choose_workflow():
         ("2", "web_deploy", "Web: deploy"),
         ("3", "api_local", "API: local test"),
         ("4", "api_deploy", "API: deploy"),
+        ("5", "config", "Config: set web/api directories"),
     ]
     print(CLR_BOLD + "Select what you want to run:" + CLR_RESET)
     for key, _, label in items:
@@ -222,8 +224,6 @@ def choose_workflow():
         raw = prompt_input("Your selection", default="")
         if not raw:
             return {k: False for _, k, _ in items}
-        if raw.startswith("!"):
-            continue
         tokens = [t.strip() for t in raw.split(",") if t.strip()]
         if not tokens:
             return {k: False for _, k, _ in items}
@@ -245,12 +245,17 @@ def main():
         print(CLR_BOLD + "Hyphai deployment assistant" + CLR_RESET)
         print(CLR_DIM + "Interactive workflow for web + API (Firebase Functions)." + CLR_RESET)
 
-        web_dir = prompt_input("Web directory", default="web")
-        api_dir = prompt_input("API directory", default="api")
+        web_dir = "web"
+        api_dir = "api"
 
         show_config_summary(web_dir, api_dir)
 
         selections = choose_workflow()
+        if selections.get("config"):
+            web_dir = prompt_input("Web directory", default=web_dir)
+            api_dir = prompt_input("API directory", default=api_dir)
+            show_config_summary(web_dir, api_dir)
+
         commands = []
         if selections.get("web_local"):
             commands += build_web_commands(web_dir)
@@ -269,7 +274,7 @@ def main():
         for i, cmd in enumerate(commands, 1):
             print(f"  {i}. {cmd}")
 
-        confirm = prompt_input("Run these commands now? (y/N)", default="N").lower()
+        confirm = prompt_input("Run these commands now? (Y/n)", default="y").lower()
         if confirm not in ("y", "yes"):
             print(CLR_YELLOW + "Aborted by user." + CLR_RESET)
             return 0
