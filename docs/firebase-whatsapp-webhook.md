@@ -36,6 +36,43 @@ References:
 3. `firebase functions:secrets:set WHATSAPP_VERIFY_TOKEN`
 4. `firebase deploy --only functions`
 
+## Custom domain via Firebase Hosting (`api.hyphai.us`)
+
+Use Firebase Hosting as the public entrypoint and route requests to the
+2nd-gen function. This avoids exposing `cloudfunctions.net` directly and keeps
+the webhook URL stable.
+
+1. In Firebase Console, open **Hosting** for project `jarvis-ce674`.
+2. Add custom domain `api.hyphai.us` to the Hosting site and complete DNS
+   verification at your registrar.
+3. Keep a Hosting rewrite that sends webhook traffic to function `webhook` in
+   `us-central1`.
+4. Deploy Hosting + Functions: `firebase deploy --only hosting,functions`.
+
+Current rewrite in this repo:
+
+```json
+{
+  "hosting": {
+    "rewrites": [
+      {
+        "source": "/webhook",
+        "function": {
+          "functionId": "webhook",
+          "region": "us-central1"
+        }
+      }
+    ]
+  }
+}
+```
+
+Webhook callback URL choices:
+
+- Path-based (matches current config): `https://api.hyphai.us/webhook`
+- Root URL (if you want no `/webhook`): change rewrite source to `"/"` and use
+  `https://api.hyphai.us`
+
 ## Verification test
 
 ```bash
