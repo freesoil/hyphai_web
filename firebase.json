@@ -1,5 +1,22 @@
 {
   "functions": {
     "source": "api"
+  },
+  "hosting": {
+    "public": "api",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/webhook",
+        "function": {
+          "functionId": "webhook",
+          "region": "us-central1"
+        }
+      }
+    ]
   }
 }
