@@ -9,10 +9,14 @@ import { MachineCatalog } from './components/MachineCatalog';
 import { MachineDetail } from './components/MachineDetail';
 import BrochurePage from './components/BrochurePage';
 import { QuoteRequestModal } from './components/QuoteRequestModal';
+import { SolutionsPage } from './components/SolutionsPage';
+import { PilotProgramsPage } from './components/PilotProgramsPage';
+import { WhoWeServePage } from './components/WhoWeServePage';
+import { HowWeWorkPage } from './components/HowWeWorkPage';
+import { AboutPage } from './components/AboutPage';
+import { ContactPage } from './components/ContactPage';
 import { Machine, machines } from './machineData';
-
-type View = 'home' | 'guide' | 'service' | 'safety' | 'privacy' | 'catalog' | 'machineDetail' | 'brochure';
-type RouteState = { view: View; machineSlug?: string };
+import { type View, type RouteState, parseHashRoute, buildHash } from './routes';
 
 const toSlug = (value: string): string =>
   value
@@ -21,58 +25,6 @@ const toSlug = (value: string): string =>
     .replace(/(^-|-$)/g, '');
 
 const getMachineSlug = (machine: Machine): string => toSlug(`${machine.name}-${machine.model}`);
-
-const parseHashRoute = (hash: string): RouteState => {
-  const rawPath = hash.startsWith('#') ? hash.slice(1) : hash;
-  const path = rawPath || '/';
-  const segments = path.replace(/^\//, '').split('/').filter(Boolean);
-
-  if (segments.length === 0) return { view: 'home' };
-  if (segments[0] === 'machine' && segments[1]) {
-    return { view: 'machineDetail', machineSlug: decodeURIComponent(segments[1]) };
-  }
-
-  switch (segments[0]) {
-    case 'catalog':
-      return { view: 'catalog' };
-    case 'guide':
-      return { view: 'guide' };
-    case 'service':
-      return { view: 'service' };
-    case 'safety':
-      return { view: 'safety' };
-    case 'privacy':
-      return { view: 'privacy' };
-    case 'brochure':
-      return { view: 'brochure' };
-    default:
-      return { view: 'home' };
-  }
-};
-
-const buildHash = (route: RouteState): string => {
-  if (route.view === 'machineDetail' && route.machineSlug) {
-    return `#/machine/${encodeURIComponent(route.machineSlug)}`;
-  }
-
-  switch (route.view) {
-    case 'catalog':
-      return '#/catalog';
-    case 'guide':
-      return '#/guide';
-    case 'service':
-      return '#/service';
-    case 'safety':
-      return '#/safety';
-    case 'privacy':
-      return '#/privacy';
-    case 'brochure':
-      return '#/brochure';
-    case 'home':
-    default:
-      return '#/';
-  }
-};
 
 export const App: React.FC = () => {
   const [analytics, setAnalytics] = useState<string[]>([]);
@@ -89,7 +41,6 @@ export const App: React.FC = () => {
   const [selectedMachine, setSelectedMachine] = useState<Machine | null>(() =>
     initialRoute.machineSlug ? machineBySlug.get(initialRoute.machineSlug) ?? null : null
   );
-
   const logEvent = (event: string) => {
     setAnalytics(prev => [...prev, event]);
   };
@@ -161,6 +112,18 @@ export const App: React.FC = () => {
 
   const renderView = () => {
     switch (view) {
+      case 'solutions':
+        return <SolutionsPage onNavigate={handleSetView} logEvent={logEvent} />;
+      case 'pilot':
+        return <PilotProgramsPage onNavigate={handleSetView} logEvent={logEvent} />;
+      case 'who-we-serve':
+        return <WhoWeServePage onNavigate={handleSetView} />;
+      case 'how-we-work':
+        return <HowWeWorkPage onNavigate={handleSetView} />;
+      case 'about':
+        return <AboutPage onNavigate={handleSetView} />;
+      case 'contact':
+        return <ContactPage logEvent={logEvent} />;
       case 'catalog':
         return <MachineCatalog onMachineSelect={handleMachineSelect} />;
       case 'machineDetail':
@@ -174,9 +137,9 @@ export const App: React.FC = () => {
           />
         );
       case 'guide':
-        return <MachineGuide logEvent={logEvent} onMachineSelect={handleMachineSelect} />;
+        return <MachineGuide logEvent={logEvent} onMachineSelect={handleMachineSelect} onNavigate={handleSetView} />;
       case 'service':
-        return <PilotService logEvent={logEvent} machine={serviceMachine} />;
+        return <PilotService logEvent={logEvent} machine={serviceMachine} onNavigate={handleSetView} />;
       case 'safety':
         return <SafetyPage />;
       case 'privacy':
@@ -199,12 +162,12 @@ export const App: React.FC = () => {
             </div>
             <span className="font-display font-bold text-xl tracking-tight text-stone-900">Hyphai</span>
           </div>
-          <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold text-stone-700">
+          <nav className="hidden lg:flex items-center gap-6 text-sm font-semibold text-stone-700">
             <button onClick={() => handleSetView('home')} className="hover:text-orange-700 transition-colors">Home</button>
-            <button onClick={() => handleSetView('service')} className="hover:text-orange-700 transition-colors">Consultation</button>
-            <button onClick={() => handleSetView('catalog')} className="hover:text-orange-700 transition-colors">Equipment</button>
-            <button onClick={() => handleSetView('guide')} className="hover:text-orange-700 transition-colors">Equipment Guide</button>
-            <button onClick={() => handleSetView('brochure')} className="hover:text-orange-700 transition-colors">Brochure</button>
+            <button onClick={() => handleSetView('solutions')} className="hover:text-orange-700 transition-colors">Solutions</button>
+            <button onClick={() => handleSetView('pilot')} className="hover:text-orange-700 transition-colors">Pilot Programs</button>
+            <button onClick={() => handleSetView('about')} className="hover:text-orange-700 transition-colors">About</button>
+            <button onClick={() => handleSetView('contact')} className="hover:text-orange-700 transition-colors">Contact</button>
           </nav>
         </div>
       </header>
@@ -215,8 +178,7 @@ export const App: React.FC = () => {
         <QuoteRequestModal machine={quoteMachine} onClose={() => setQuoteMachine(null)} logEvent={logEvent} />
       )}
 
-      {view !== 'home' && (
-        <footer className="bg-stone-900 text-white py-12 px-6">
+      <footer className="bg-stone-900 text-white py-12 px-6">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
             <div className="flex items-center gap-2">
               <div className="bg-emerald-700 p-2 rounded-xl shadow-md">
@@ -235,7 +197,6 @@ export const App: React.FC = () => {
             </p>
           </div>
         </footer>
-      )}
     </div>
   );
 };
