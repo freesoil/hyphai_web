@@ -12,7 +12,8 @@
     "preview:gh-pages": "npm run build:gh-pages && vite preview --base /hyphai_web/",
     "test": "vitest run",
     "predeploy": "npm run build:gh-pages",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "deploy:root": "npm run build && gh-pages -d dist"
   },
   "dependencies": {
     "@google/genai": "^1.34.0",

@@ -150,19 +150,16 @@ def build_web_commands(web_dir):
 
 def build_web_deploy_commands(web_dir):
     opts = [
-        ("1", "Deploy to GitHub Pages (npm run deploy) — for ...github.io/hyphai_web/"),
-        ("2", "Build for root only (npm run build) — for hyphai.us; then upload dist/ to your host"),
+        ("1", "Deploy to GitHub Pages with custom domain / root (npm run deploy:root) — for hyphai.us"),
+        ("2", "Deploy to GitHub Pages subpath (npm run deploy) — for ...github.io/hyphai_web/ only"),
         ("3", "Skip web deploy"),
     ]
     kind, val = prompt_choice("Web: deploy", opts, "1")
     if kind == "option":
         if val == "1":
-            return [f"cd {web_dir} && npm run deploy"]
+            return [f"cd {web_dir} && npm run deploy:root"]
         if val == "2":
-            return [
-                f"cd {web_dir} && npm run build",
-                f"echo '→ Upload the contents of {web_dir}/dist/ to the root of your host (e.g. hyphai.us)'",
-            ]
+            return [f"cd {web_dir} && npm run deploy"]
         return []
     return [f"cd {web_dir} && {val}"]
 
