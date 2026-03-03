@@ -27,7 +27,7 @@ View your app in AI Studio: https://ai.studio/apps/drive/1RoBqtExP96izB-iH-QhUAu
 
 ## Build & deploy
 
-- **Deploy at site root** (e.g. custom domain `https://hyphai.us/`): use `npm run build`, then upload the `dist/` folder. Asset URLs will be `/assets/...`, `/hero-transplanter-video.mp4`, etc.
-- **Deploy to a subpath** (e.g. GitHub Pages `https://...github.io/hyphai_web/`): use `npm run build:gh-pages` or `npm run deploy`. Asset URLs will be `/hyphai_web/assets/...`, `/hyphai_web/hero-transplanter-video.mp4`, etc.
+- **Deploy at site root** (e.g. **hyphai.us** at `https://hyphai.us/`): run **`npm run build`** (no `BASE_PATH`), then upload the contents of `dist/` to the root of your host. Do **not** use `npm run build:gh-pages` or `npm run deploy` for the main site.
+- **Deploy to a subpath** (e.g. GitHub Pages `https://...github.io/hyphai_web/`): use `npm run build:gh-pages` or `npm run deploy`.
 
-If you see 404s for `index-*.js` or `index-*.css`, the build base path does not match where the app is served: use `npm run build` for root, or `npm run build:gh-pages` for the `/hyphai_web/` subpath.
+If you see 404s for `.../hyphai_web/assets/index-*.js` or `.../hyphai_web/assets/index-*.css` on hyphai.us, the wrong build was deployed: redeploy using `npm run build` (root build) for hyphai.us.
