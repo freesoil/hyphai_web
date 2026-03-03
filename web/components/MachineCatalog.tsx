@@ -4,7 +4,7 @@ import { ListFilter, Search } from 'lucide-react';
 import { resolveAssetUrl } from '../utils/asset';
 import { copy } from '../copy/redesign';
 
-type MachineType = 'All' | 'Single Ridge' | 'Double Row Multi-Function';
+type MachineType = 'All' | 'Single Ridge' | 'Multi-Functional Transplanter';
 
 interface MachineCatalogProps {
   onMachineSelect: (machine: Machine) => void;
@@ -44,7 +44,7 @@ export const MachineCatalog: React.FC<MachineCatalogProps> = ({ onMachineSelect 
               <ListFilter className="w-5 h-5 text-stone-500" />
               <span className="text-sm font-semibold">{copy.catalog.filterLabel}</span>
               <div className="flex gap-2 rounded-lg bg-stone-100 p-1">
-                {(['All', 'Single Ridge', 'Double Row Multi-Function'] as MachineType[]).map(type => (
+                {(['All', 'Single Ridge', 'Multi-Functional Transplanter'] as MachineType[]).map(type => (
                   <button 
                     key={type}
                     onClick={() => setFilter(type)}

@@ -259,8 +259,8 @@ export const machines: Machine[] = [
 export const catalogMachines: Machine[] = [
   {
     type: 'Transplanter',
-    category: 'Double Row Multi-Function',
-    name: 'Two Row Multi-Function Machine',
+    category: 'Multi-Functional Transplanter',
+    name: 'Multi-Functional Transplanter',
     model: '2ZBX-2 / 2ZBX-2A',
     specs: {
       'Total Weight': '1,100 lb',
