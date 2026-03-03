@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { machines, Machine } from '../machineData';
+import { catalogMachines, Machine } from '../machineData';
 import { ListFilter, Search } from 'lucide-react';
 import { resolveAssetUrl } from '../utils/asset';
 import { copy } from '../copy/redesign';
 
-type MachineType = 'All' | 'Transplanter' | 'Ridging Machine';
+type MachineType = 'All' | 'Single Ridge' | 'Double Row Multi-Function';
 
 interface MachineCatalogProps {
   onMachineSelect: (machine: Machine) => void;
@@ -14,8 +14,8 @@ export const MachineCatalog: React.FC<MachineCatalogProps> = ({ onMachineSelect 
   const [filter, setFilter] = useState<MachineType>('All');
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredMachines = machines.filter(machine => {
-    const matchesType = filter === 'All' || machine.type === filter;
+  const filteredMachines = catalogMachines.filter(machine => {
+    const matchesType = filter === 'All' || machine.category === filter;
     const matchesSearch = searchTerm === '' || machine.name.toLowerCase().includes(searchTerm.toLowerCase()) || machine.features.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesType && matchesSearch;
   });
@@ -44,7 +44,7 @@ export const MachineCatalog: React.FC<MachineCatalogProps> = ({ onMachineSelect 
               <ListFilter className="w-5 h-5 text-stone-500" />
               <span className="text-sm font-semibold">{copy.catalog.filterLabel}</span>
               <div className="flex gap-2 rounded-lg bg-stone-100 p-1">
-                {(['All', 'Transplanter', 'Ridging Machine'] as MachineType[]).map(type => (
+                {(['All', 'Single Ridge', 'Double Row Multi-Function'] as MachineType[]).map(type => (
                   <button 
                     key={type}
                     onClick={() => setFilter(type)}

@@ -15,7 +15,7 @@ import { WhoWeServePage } from './components/WhoWeServePage';
 import { HowWeWorkPage } from './components/HowWeWorkPage';
 import { AboutPage } from './components/AboutPage';
 import { ContactPage } from './components/ContactPage';
-import { Machine, machines } from './machineData';
+import { Machine, catalogMachines } from './machineData';
 import { type View, type RouteState, parseHashRoute, buildHash } from './routes';
 
 const toSlug = (value: string): string =>
@@ -32,7 +32,7 @@ export const App: React.FC = () => {
   const [serviceMachine, setServiceMachine] = useState<Machine | null>(null);
 
   const machineBySlug = useMemo(
-    () => new Map(machines.map(machine => [getMachineSlug(machine), machine])),
+    () => new Map(catalogMachines.map(machine => [getMachineSlug(machine), machine])),
     []
   );
 

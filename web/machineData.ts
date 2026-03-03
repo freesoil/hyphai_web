@@ -250,3 +250,69 @@ export const machines: Machine[] = [
     inferred: true
   }
 ];
+
+/**
+ * Current equipment catalog: only these machines are shown in the Equipment
+ * catalog and in machine detail routes. Full list above (machines) is kept for
+ * legacy use (e.g. Guide, Brochure) but not displayed in the main catalog.
+ */
+export const catalogMachines: Machine[] = [
+  {
+    type: 'Transplanter',
+    category: 'Double Row Multi-Function',
+    name: 'Two Row Multi-Function Machine',
+    model: '2ZBX-2 / 2ZBX-2A',
+    specs: {
+      'Total Weight': '1,100 lb',
+      'Overall Dimensions': '73 × 71 × 59 in',
+      'Working Rows': 'Two rows',
+      'Row Spacing': '12–20 in',
+      'Plant Spacing': '8–16 in',
+      'Required Power': '≥40 HP',
+      'Planting Depth': '2–4 in',
+      'Drive Type': 'Gearbox or ground-wheel drive',
+      'Planter Type': 'Cup-type',
+      'Seedling Method': 'Plug tray',
+    },
+    features: 'The transplanter uses cup-type planters to take pre-grown seedlings from trays or seedbeds and place them into the field at the set row and plant spacing. The drive system controls planter motion so depth and angle meet requirements; press wheels compact soil after planting so roots make good contact and survival rate is high. Widely used in vegetables, flowers, and tobacco. Can be tractor-mounted or used as a standalone unit. Ideal for mechanized transplanting in modern agriculture.',
+    imageUrls: [
+      '/media/two_row_multi_func/demo.mp4',
+      '/media/two_row_multi_func/mmexport1770168091061.mp4',
+      '/media/two_row_multi_func/mmexport1770168131153.mp4',
+      '/media/two_row_multi_func/施肥.mp4',
+      '/media/two_row_multi_func/Screenshot_20260203-172505.png',
+      '/media/two_row_multi_func/Screenshot_20260203-172530.png',
+      '/media/two_row_multi_func/Screenshot from 2026-03-03 08-06-04.png',
+      '/media/two_row_multi_func/transplanter.png',
+      '/media/two_row_multi_func/Video-in-Ag-Machines-Google-Photos-03-03-2026_07_51_AM.png',
+      '/media/two_row_multi_func/Video-in-Ag-Machines-Google-Photos-03-03-2026_08_04_AM.png',
+    ],
+    inferred: true,
+  },
+  {
+    type: 'Ridging Machine',
+    category: 'Single Ridge',
+    name: 'Single Ridge Machine',
+    model: '1GVF-100 to 1GVF-240',
+    specs: {
+      'Tillage Width': '39–94 in (100–240 cm)',
+      'Tillage Depth': '≥7 in (≥18 cm)',
+      'Ridge Surface Width': '16–79 in (40–200 cm, model-dependent)',
+      'Ridge Height': '6–12 in (15–30 cm)',
+      'Ridges': 'Single ridge',
+      'Working Efficiency': '0.5–1.6 acre/hr (3–10 mu/hr, model-dependent)',
+      'Machine Weight': '990–2,200 lb (450–1,000 kg ±50 kg by model)',
+      'Overall Dimensions': '87×55×59 in to 102×110×63 in (model-dependent)',
+      'Required Power': '35–120+ HP (medium tractor or greenhouse tractor)',
+      'Film Width': 'Ridge surface + (ridge height × 2) + 8 in margin',
+    },
+    features: 'Single-ridge ridging machines in eight sizes (1GVF-100 through 1GVF-240) to match your tillage width. Full-function units form one ridge per pass with adjustable ridge surface width and height. Ideal for root vegetables (for example, carrots), vegetables, and greenhouse or open-field use. Compatible with medium tractors or high-clearance greenhouse tractors. Mulch film width can be sized from ridge surface and height.',
+    imageUrls: [
+      '/media/ridging_machine/单垄起垄机.mp4',
+      '/media/ridging_machine/单垄起垄机.jpg',
+      '/media/ridging_machine/单垄起垄机1.jpg',
+      '/media/ridging_machine/单垄起垄机3.jpg',
+    ],
+    inferred: true,
+  },
+];

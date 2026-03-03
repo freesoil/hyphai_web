@@ -224,7 +224,7 @@ export const copy = {
 
   catalog: {
     headline: 'Equipment Integration',
-    subhead: 'Field-ready machinery we source and integrate as part of your operational system. Current pilot areas: transplanting and ridging.',
+    subhead: 'Field-ready machinery we source and integrate as part of your operational system. Currently featuring single row ridging and two row multi-function equipment.',
     searchPlaceholder: 'Search equipment...',
     filterLabel: 'Filter by Type:',
     noResults: 'No machines found',
