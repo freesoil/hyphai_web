@@ -1,8 +1,8 @@
-
 import React, { useState } from 'react';
 import { machines, Machine } from '../machineData';
 import { ListFilter, Search } from 'lucide-react';
 import { resolveAssetUrl } from '../utils/asset';
+import { copy } from '../copy/redesign';
 
 type MachineType = 'All' | 'Transplanter' | 'Ridging Machine';
 
@@ -24,8 +24,8 @@ export const MachineCatalog: React.FC<MachineCatalogProps> = ({ onMachineSelect 
     <div className="bg-white/70 py-20 px-6 animate-in fade-in duration-700">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="font-display text-4xl tracking-tight text-stone-900">Equipment Library</h1>
-          <p className="mt-4 text-lg text-stone-600">Curated, cost-effective options we can help source and integrate.</p>
+          <h1 className="font-display text-4xl tracking-tight text-stone-900">{copy.catalog.headline}</h1>
+          <p className="mt-4 text-lg text-stone-600">{copy.catalog.subhead}</p>
         </div>
 
         <div className="mb-10 p-4 bg-white/60 backdrop-blur-sm rounded-2xl shadow-md border border-stone-200 sticky top-24 z-30">
@@ -34,7 +34,7 @@ export const MachineCatalog: React.FC<MachineCatalogProps> = ({ onMachineSelect 
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-stone-400" />
               <input 
                 type="text"
-                placeholder="Search equipment..."
+                placeholder={copy.catalog.searchPlaceholder}
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 bg-stone-50 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
@@ -42,7 +42,7 @@ export const MachineCatalog: React.FC<MachineCatalogProps> = ({ onMachineSelect 
             </div>
             <div className="flex items-center gap-2">
               <ListFilter className="w-5 h-5 text-stone-500" />
-              <span className="text-sm font-semibold">Filter by Type:</span>
+              <span className="text-sm font-semibold">{copy.catalog.filterLabel}</span>
               <div className="flex gap-2 rounded-lg bg-stone-100 p-1">
                 {(['All', 'Transplanter', 'Ridging Machine'] as MachineType[]).map(type => (
                   <button 
@@ -65,8 +65,8 @@ export const MachineCatalog: React.FC<MachineCatalogProps> = ({ onMachineSelect 
         </div>
         {filteredMachines.length === 0 && (
           <div className="text-center col-span-full py-16">
-            <h3 className="text-xl font-semibold">No machines found</h3>
-            <p className="text-stone-500 mt-2">Try adjusting your search or filter criteria.</p>
+            <h3 className="text-xl font-semibold">{copy.catalog.noResults}</h3>
+            <p className="text-stone-500 mt-2">{copy.catalog.noResultsHint}</p>
           </div>
         )}
       </div>

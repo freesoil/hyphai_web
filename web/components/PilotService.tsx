@@ -1,14 +1,15 @@
-
 import React, { useState, useEffect } from 'react';
-import { Send, Check, AlertTriangle, Cpu, ClipboardList } from 'lucide-react';
+import { Send, Check, AlertTriangle, Cpu, ClipboardList, ArrowRight } from 'lucide-react';
 import { Machine } from '../machineData';
+import { copy } from '../copy/redesign';
 
 interface PilotServiceProps {
   logEvent: (event: string) => void;
   machine: Machine | null;
+  onNavigate?: (view: 'contact') => void;
 }
 
-export const PilotService: React.FC<PilotServiceProps> = ({ logEvent, machine }) => {
+export const PilotService: React.FC<PilotServiceProps> = ({ logEvent, machine, onNavigate }) => {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -138,10 +139,18 @@ export const PilotService: React.FC<PilotServiceProps> = ({ logEvent, machine })
           </h1>
           <p className="mt-4 text-lg text-stone-600 max-w-3xl mx-auto">
             {machine
-              ? `Let’s assess fit, integration, and ROI for the ${machine.name} in your operation.`
+              ? `Let's assess fit, integration, and ROI for the ${machine.name} in your operation.`
               : 'We provide practical guidance on AI, sensors, equipment, and software workflows to reduce labor and improve operational clarity.'
             }
           </p>
+          {onNavigate && (
+            <p className="mt-4 text-sm text-stone-500">
+              {copy.consultation.preferQuickForm}{' '}
+              <button type="button" onClick={() => { logEvent('Consultation → Contact'); onNavigate('contact'); }} className="text-emerald-700 font-semibold hover:text-emerald-800 inline-flex items-center gap-1">
+                Contact <ArrowRight className="w-4 h-4" />
+              </button>
+            </p>
+          )}
         </div>
         
         {!machine && (

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronRight, RefreshCw, ArrowLeft } from 'lucide-react';
+import { ChevronRight, RefreshCw, ArrowLeft, ArrowRight } from 'lucide-react';
 import { machines, Machine } from '../machineData';
 import { resolveAssetUrl } from '../utils/asset';
+import { copy } from '../copy/redesign';
 
 type Step = 'machineType' | 'transplanterScale' | 'tractorPower' | 'ridgeRows' | 'ridgeFunctions' | 'result';
 
@@ -16,6 +17,7 @@ interface AnswerState {
 interface MachineGuideProps {
   logEvent: (event: string) => void;
   onMachineSelect: (machine: Machine) => void;
+  onNavigate?: (view: 'solutions' | 'catalog' | 'contact') => void;
 }
 
 export const MachineGuide: React.FC<MachineGuideProps> = ({ logEvent, onMachineSelect }) => {
@@ -120,9 +122,27 @@ export const MachineGuide: React.FC<MachineGuideProps> = ({ logEvent, onMachineS
     }
   };
 
+  const { guide } = copy;
+
   return (
     <div className="bg-white/70 min-h-[80vh] py-20 px-6 animate-in fade-in duration-700">
       <div className="max-w-4xl mx-auto">
+        {step === 'machineType' && (
+          <div className="surface rounded-2xl p-6 mb-10 text-center">
+            <h2 className="font-display text-xl text-stone-900 mb-2">{guide.introTitle}</h2>
+            <p className="text-stone-600 mb-4">{guide.introBody}</p>
+            {onNavigate && (
+              <button
+                type="button"
+                onClick={() => { logEvent('Guide → Explore solutions'); onNavigate('solutions'); }}
+                className="inline-flex items-center gap-2 text-emerald-700 font-semibold hover:text-emerald-800"
+              >
+                {guide.introCta}
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+        )}
         {renderStep()}
       </div>
     </div>

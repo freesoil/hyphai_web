@@ -1,7 +1,6 @@
 
 import React from 'react';
-import { machines } from '../machineData';
-import { Machine } from '../types';
+import { machines, Machine } from '../machineData';
 import { Tractor, Mail, Phone, Settings, CheckSquare } from 'lucide-react';
 import { resolveAssetUrl } from '../utils/asset';
 
