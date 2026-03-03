@@ -9,7 +9,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "predeploy": "npm run build",
+    "predeploy": "BASE_PATH=/hyphai_web npm run build",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {

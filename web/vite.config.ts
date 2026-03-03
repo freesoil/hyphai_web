@@ -4,12 +4,15 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
+    // BASE_PATH: use for deployment to a subpath (e.g. GitHub Pages: /hyphai_web/)
+    const basePath = env.BASE_PATH || process.env.BASE_PATH || '';
+    const base = basePath ? (basePath.endsWith('/') ? basePath : `${basePath}/`) : '/';
     return {
       server: {
         port: 3000,
         host: '0.0.0.0',
       },
-      base: '/',
+      base,
       plugins: [react()],
       define: {
         'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
