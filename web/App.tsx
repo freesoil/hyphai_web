@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Sprout } from 'lucide-react';
+import { Sprout, Menu, X } from 'lucide-react';
 import { HomePage } from './components/HomePage';
 import { MachineGuide } from './components/MachineGuide';
 import { PilotService } from './components/PilotService';
@@ -41,6 +41,8 @@ export const App: React.FC = () => {
   const [selectedMachine, setSelectedMachine] = useState<Machine | null>(() =>
     initialRoute.machineSlug ? machineBySlug.get(initialRoute.machineSlug) ?? null : null
   );
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
+
   const logEvent = (event: string) => {
     setAnalytics(prev => [...prev, event]);
   };
@@ -60,6 +62,7 @@ export const App: React.FC = () => {
   };
 
   const handleSetView = (newView: Exclude<View, 'machineDetail'>) => {
+    setMobileNavOpen(false);
     navigateTo({ view: newView });
   };
 
@@ -169,7 +172,27 @@ export const App: React.FC = () => {
             <button onClick={() => handleSetView('about')} className="hover:text-orange-700 transition-colors">About</button>
             <button onClick={() => handleSetView('contact')} className="hover:text-orange-700 transition-colors">Contact</button>
           </nav>
+          <button
+            type="button"
+            onClick={() => setMobileNavOpen(open => !open)}
+            className="lg:hidden p-2 rounded-lg text-stone-700 hover:bg-stone-100 transition-colors"
+            aria-label={mobileNavOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileNavOpen}
+          >
+            {mobileNavOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
+        {mobileNavOpen && (
+          <div className="lg:hidden mt-4 pt-4 border-t border-white/60 animate-in fade-in slide-in-from-top-2 duration-200">
+            <nav className="flex flex-col gap-1 text-sm font-semibold text-stone-700">
+              <button onClick={() => handleSetView('home')} className="py-3 px-2 text-left rounded-lg hover:bg-stone-100 hover:text-orange-700 transition-colors">Home</button>
+              <button onClick={() => handleSetView('solutions')} className="py-3 px-2 text-left rounded-lg hover:bg-stone-100 hover:text-orange-700 transition-colors">Solutions</button>
+              <button onClick={() => handleSetView('pilot')} className="py-3 px-2 text-left rounded-lg hover:bg-stone-100 hover:text-orange-700 transition-colors">Pilot Programs</button>
+              <button onClick={() => handleSetView('about')} className="py-3 px-2 text-left rounded-lg hover:bg-stone-100 hover:text-orange-700 transition-colors">About</button>
+              <button onClick={() => handleSetView('contact')} className="py-3 px-2 text-left rounded-lg hover:bg-stone-100 hover:text-orange-700 transition-colors">Contact</button>
+            </nav>
+          </div>
+        )}
       </header>
 
       <main className="flex-grow">{renderView()}</main>
