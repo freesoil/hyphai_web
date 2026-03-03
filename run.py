@@ -127,7 +127,8 @@ def build_web_commands(web_dir):
     opts = [
         ("1", "Install deps + run dev server (npm install, npm run dev)"),
         ("2", "Install deps + build + preview (npm install, npm run build, npm run preview)"),
-        ("3", "Skip local web test"),
+        ("3", "Install deps + run tests (npm install, npm run test)"),
+        ("4", "Skip local web test"),
     ]
     kind, val = prompt_choice("Web: local test", opts, "1")
     commands = []
@@ -139,6 +140,9 @@ def build_web_commands(web_dir):
             commands.append(f"cd {web_dir} && npm install")
             commands.append(f"cd {web_dir} && npm run build")
             commands.append(f"cd {web_dir} && npm run preview")
+        elif val == "3":
+            commands.append(f"cd {web_dir} && npm install")
+            commands.append(f"cd {web_dir} && npm run test")
     else:
         commands.append(f"cd {web_dir} && {val}")
     return commands
@@ -210,7 +214,7 @@ def show_config_summary(web_dir, api_dir):
 
 def choose_workflow():
     items = [
-        ("1", "web_local", "Web: local test"),
+        ("1", "web_local", "Web: local dev / build / test"),
         ("2", "web_deploy", "Web: deploy"),
         ("3", "api_local", "API: local test"),
         ("4", "api_deploy", "API: deploy"),
@@ -273,6 +277,8 @@ def main():
         print(CLR_BOLD + "Planned commands:" + CLR_RESET)
         for i, cmd in enumerate(commands, 1):
             print(f"  {i}. {cmd}")
+        if any("npm run dev" in c for c in commands):
+            print(CLR_GREEN + "  → Then open http://localhost:3000 in your browser." + CLR_RESET)
 
         confirm = prompt_input("Run these commands now? (Y/n)", default="y").lower()
         if confirm not in ("y", "yes"):

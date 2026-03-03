@@ -10,11 +10,17 @@ View your app in AI Studio: https://ai.studio/apps/drive/1RoBqtExP96izB-iH-QhUAu
 
 ## Run Locally
 
-**Prerequisites:**  Node.js
-
+**Prerequisites:** Node.js
 
 1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+   ```bash
+   npm install
+   ```
+2. (Optional) Set `GEMINI_API_KEY` in `.env.local` if you use Gemini features.
+3. Start the dev server:
+   ```bash
+   npm run dev
+   ```
+4. **Open in your browser:** [http://localhost:3000](http://localhost:3000)
+
+   The app uses hash routing: try `http://localhost:3000/#/`, `http://localhost:3000/#/solutions`, `http://localhost:3000/#/contact`, etc.
