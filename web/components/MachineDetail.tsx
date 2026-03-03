@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Machine } from '../machineData';
-import { ArrowLeft, FileText, Users, Wind, Check, ChevronRight } from 'lucide-react';
+import { ArrowLeft, FileText, Users, Check, ChevronRight } from 'lucide-react';
 import { resolveAssetUrl } from '../utils/asset';
 
 interface MachineDetailProps {
@@ -102,13 +102,6 @@ export const MachineDetail: React.FC<MachineDetailProps> = ({ machine, onBack, o
                 ))}
               </ul>
             </div>
-
-            {machine.inferred && (
-              <div className="bg-amber-50 text-amber-800 p-4 rounded-xl text-sm flex items-center gap-3 border border-amber-200">
-                <Wind size={16} />
-                <span><b>Note:</b> Specifications inferred from available data. Contact us for precise details.</span>
-              </div>
-            )}
 
             <div className="sticky top-28 space-y-6">
                <div className="bg-white p-6 rounded-2xl border-2 border-orange-500 shadow-xl cursor-pointer hover:shadow-2xl transition-shadow" onClick={() => onQuoteRequest(machine)}>
