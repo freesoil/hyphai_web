@@ -74,17 +74,9 @@ def save_command_history():
 
 def run_shell_command(cmd):
     print(CLR_CYAN + f"$ {cmd}" + CLR_RESET)
-    result = subprocess.run(cmd, shell=True, text=True, capture_output=True)
-    out = result.stdout.strip()
-    err = result.stderr.strip()
-    body = ""
-    if out:
-        body += out
-    if err:
-        body += ("\n" if body else "") + (CLR_RED + err + CLR_RESET)
-    if not body:
-        body = "(no output)"
-    print_box("command output", body)
+    result = subprocess.run(cmd, shell=True, text=True)
+    status = "command completed" if result.returncode == 0 else f"command failed ({result.returncode})"
+    print_box(status, "")
     command_history.append(cmd)
     save_command_history()
     return result.returncode
@@ -281,7 +273,7 @@ def main():
         for i, cmd in enumerate(commands, 1):
             print(f"  {i}. {cmd}")
         if any("npm run dev" in c for c in commands):
-            print(CLR_GREEN + "  → Then open http://localhost:3000 in your browser." + CLR_RESET)
+            print(CLR_GREEN + "  → Then open http://localhost:5173 in your browser." + CLR_RESET)
 
         confirm = prompt_input("Run these commands now? (Y/n)", default="y").lower()
         if confirm not in ("y", "yes"):
