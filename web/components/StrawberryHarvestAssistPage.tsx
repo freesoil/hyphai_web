@@ -1,15 +1,6 @@
 import React from 'react';
-import {
-  ArrowRight,
-  BadgeCheck,
-  Bot,
-  Briefcase,
-  MapPinned,
-  MoveRight,
-  Pickaxe,
-  Target,
-  Users,
-} from 'lucide-react';
+import { ArrowRight, BadgeCheck, Bot, MapPinned, MoveRight, Pickaxe, Target, Users } from 'lucide-react';
+import { resolveAssetUrl } from '../utils/asset';
 
 type NavView =
   | 'home'
@@ -63,49 +54,71 @@ const milestones = [
 export const StrawberryHarvestAssistPage: React.FC<StrawberryHarvestAssistPageProps> = ({
   onNavigate,
 }) => {
+  const pickingImage = resolveAssetUrl('/projects/strawberry-harvest-assist/strawberry_picking.jpg');
+  const transportImage = resolveAssetUrl('/projects/strawberry-harvest-assist/strawberry_transport.jpg');
+  const fleetImage = resolveAssetUrl('/projects/strawberry-harvest-assist/fleet_of_machines.png');
+
   return (
     <div className="animate-in fade-in duration-700">
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(58,107,53,0.16),transparent_34%),radial-gradient(circle_at_85%_18%,rgba(201,119,79,0.18),transparent_28%),linear-gradient(180deg,rgba(58,47,37,0.96),rgba(58,47,37,0.88))]" />
         <div className="absolute inset-0 grain opacity-25" />
-        <div className="relative max-w-6xl mx-auto px-6 py-20 md:py-28">
-          <div className="max-w-4xl text-white">
-            <p className="text-xs uppercase tracking-[0.32em] text-amber-200/90 reveal">
-              Project Spotlight
-            </p>
-            <h1 className="font-display text-4xl md:text-6xl leading-tight mt-4 reveal reveal-delay-1">
-              Strawberry Harvest Assist
-            </h1>
-            <p className="mt-6 text-lg md:text-xl text-stone-100/90 max-w-3xl reveal reveal-delay-2">
-              A worker-centered robotic collection platform designed to reduce transport downtime,
-              cut physical strain, and recover yield lost to harvest bottlenecks.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3 reveal reveal-delay-3">
-              <span className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm">
-                California-based
-              </span>
-              <span className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm">
-                Commercial farm pilot in planning
-              </span>
-              <span className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm">
-                Built for specialty crop harvest workflows
-              </span>
+        <div className="relative max-w-6xl mx-auto px-6 py-20 md:py-24">
+          <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="max-w-4xl text-white">
+              <p className="text-xs uppercase tracking-[0.32em] text-amber-200/90 reveal">
+                Project Spotlight
+              </p>
+              <h1 className="font-display text-4xl md:text-6xl leading-tight mt-4 reveal reveal-delay-1">
+                Strawberry Harvest Assist
+              </h1>
+              <p className="mt-6 text-lg md:text-xl text-stone-100/90 max-w-3xl reveal reveal-delay-2">
+                A worker-centered robotic collection platform designed to reduce transport downtime,
+                cut physical strain, and recover yield lost to harvest bottlenecks.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3 reveal reveal-delay-3">
+                <span className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm">
+                  California-based
+                </span>
+                <span className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm">
+                  Commercial farm pilot in planning
+                </span>
+                <span className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm">
+                  Built for specialty crop harvest workflows
+                </span>
+              </div>
+              <div className="mt-10 flex flex-wrap gap-4 reveal reveal-delay-3">
+                <button
+                  onClick={() => onNavigate('contact')}
+                  className="bg-amber-400 text-stone-900 font-semibold px-6 py-3 rounded-full inline-flex items-center gap-2 shadow-lg shadow-amber-500/30 hover:bg-amber-300 transition-all"
+                >
+                  Discuss the project
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => onNavigate('about')}
+                  className="border border-white/50 text-white font-semibold px-6 py-3 rounded-full inline-flex items-center gap-2 hover:bg-white/10 transition-all"
+                >
+                  Learn about Hyphai
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
             </div>
-            <div className="mt-10 flex flex-wrap gap-4 reveal reveal-delay-3">
-              <button
-                onClick={() => onNavigate('contact')}
-                className="bg-amber-400 text-stone-900 font-semibold px-6 py-3 rounded-full inline-flex items-center gap-2 shadow-lg shadow-amber-500/30 hover:bg-amber-300 transition-all"
-              >
-                Discuss the project
-                <ArrowRight className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => onNavigate('about')}
-                className="border border-white/50 text-white font-semibold px-6 py-3 rounded-full inline-flex items-center gap-2 hover:bg-white/10 transition-all"
-              >
-                Learn about Hyphai
-                <ArrowRight className="w-4 h-4" />
-              </button>
+
+            <div className="reveal reveal-delay-2">
+              <div className="surface rounded-[2rem] overflow-hidden border border-white/10 bg-white/10 shadow-2xl shadow-black/20">
+                <img
+                  src={pickingImage}
+                  alt="Strawberry harvesters picking fruit in the field."
+                  className="h-[320px] w-full object-cover md:h-[420px]"
+                />
+                <div className="border-t border-white/10 bg-stone-950/70 px-6 py-5 text-stone-100">
+                  <p className="text-xs uppercase tracking-[0.24em] text-amber-200/80">Field context</p>
+                  <p className="mt-2 text-sm text-stone-200/90">
+                    Built around the reality of active strawberry harvest work, where efficiency is limited by transport interruptions.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -139,6 +152,13 @@ export const StrawberryHarvestAssistPage: React.FC<StrawberryHarvestAssistPagePr
               fruit remaining in the field. This project targets that operational gap rather than asking
               growers to redesign the whole harvest system.
             </p>
+            <div className="mt-8 overflow-hidden rounded-[1.5rem] border border-stone-200">
+              <img
+                src={transportImage}
+                alt="Harvesters carrying strawberry crates through the field."
+                className="h-[260px] w-full object-cover"
+              />
+            </div>
           </div>
 
           <div className="bg-stone-900 text-white rounded-[2rem] p-8 md:p-10">
@@ -191,14 +211,21 @@ export const StrawberryHarvestAssistPage: React.FC<StrawberryHarvestAssistPagePr
               </div>
             </div>
 
-            <div className="rounded-[2rem] border border-stone-200 bg-gradient-to-br from-emerald-50 via-amber-50 to-white p-8">
-              <div className="grid gap-4">
+            <div className="rounded-[2rem] border border-stone-200 bg-gradient-to-br from-emerald-50 via-amber-50 to-white p-5 md:p-6">
+              <div className="overflow-hidden rounded-[1.5rem] border border-white bg-white shadow-lg shadow-stone-200/40">
+                <img
+                  src={fleetImage}
+                  alt="Illustration of a fleet-style harvest assist concept supporting pickers in strawberry rows."
+                  className="w-full object-cover"
+                />
+              </div>
+              <div className="mt-5 grid gap-4">
                 <div className="rounded-3xl bg-white/80 p-5 border border-white">
                   <div className="flex items-center gap-3 text-stone-900">
                     <Users className="w-5 h-5 text-emerald-700" />
-                    <span className="font-semibold">Field worker</span>
+                    <span className="font-semibold">Continuous picking</span>
                   </div>
-                  <p className="mt-2 text-sm text-stone-600">Keeps harvesting instead of making transport runs.</p>
+                  <p className="mt-2 text-sm text-stone-600">Workers stay on task instead of breaking rhythm for transport runs.</p>
                 </div>
                 <div className="flex justify-center text-stone-400">
                   <MoveRight className="w-6 h-6" />
@@ -206,9 +233,9 @@ export const StrawberryHarvestAssistPage: React.FC<StrawberryHarvestAssistPagePr
                 <div className="rounded-3xl bg-white/80 p-5 border border-white">
                   <div className="flex items-center gap-3 text-stone-900">
                     <Bot className="w-5 h-5 text-emerald-700" />
-                    <span className="font-semibold">Robotic platform</span>
+                    <span className="font-semibold">Mobile field support</span>
                   </div>
-                  <p className="mt-2 text-sm text-stone-600">Carries crates, navigates to collection, and returns.</p>
+                  <p className="mt-2 text-sm text-stone-600">Harvest movement is handled in the background as part of the field workflow.</p>
                 </div>
                 <div className="flex justify-center text-stone-400">
                   <MoveRight className="w-6 h-6" />
@@ -216,9 +243,9 @@ export const StrawberryHarvestAssistPage: React.FC<StrawberryHarvestAssistPagePr
                 <div className="rounded-3xl bg-white/80 p-5 border border-white">
                   <div className="flex items-center gap-3 text-stone-900">
                     <Pickaxe className="w-5 h-5 text-emerald-700" />
-                    <span className="font-semibold">Farm operation</span>
+                    <span className="font-semibold">Higher effective labor output</span>
                   </div>
-                  <p className="mt-2 text-sm text-stone-600">Gets more productive harvest hours from the same crew.</p>
+                  <p className="mt-2 text-sm text-stone-600">The same crew can spend a larger share of the day actually harvesting fruit.</p>
                 </div>
               </div>
             </div>
@@ -230,12 +257,12 @@ export const StrawberryHarvestAssistPage: React.FC<StrawberryHarvestAssistPagePr
         <div className="max-w-6xl mx-auto grid gap-6 lg:grid-cols-3">
           <div className="surface rounded-[2rem] p-8">
             <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center">
-              <Briefcase className="w-6 h-6" />
+              <Users className="w-6 h-6" />
             </div>
-            <h3 className="font-display text-2xl text-stone-900 mt-5">Stakeholder engagement</h3>
+            <h3 className="font-display text-2xl text-stone-900 mt-5">Deployment fit</h3>
             <p className="mt-3 text-stone-600">
-              The project has been shaped through ongoing discussions with Driscoll&apos;s and strawberry
-              production stakeholders to validate pain points, worker interaction needs, and deployment constraints.
+              The system is being designed around real harvest conditions, with emphasis on worker interaction,
+              row-level maneuvering, crate handling, and minimal disruption to existing farm operations.
             </p>
           </div>
 
