@@ -6,6 +6,7 @@ export type View =
   | 'home'
   | 'solutions'
   | 'pilot'
+  | 'project-strawberry-harvest-assist'
   | 'who-we-serve'
   | 'how-we-work'
   | 'about'
@@ -35,6 +36,11 @@ export function parseHashRoute(hash: string): RouteState {
       return { view: 'solutions' };
     case 'pilot':
       return { view: 'pilot' };
+    case 'projects':
+      if (segments[1] === 'strawberry-harvest-assist') {
+        return { view: 'project-strawberry-harvest-assist' };
+      }
+      return { view: 'home' };
     case 'who-we-serve':
       return { view: 'who-we-serve' };
     case 'how-we-work':
@@ -70,6 +76,8 @@ export function buildHash(route: RouteState): string {
       return '#/solutions';
     case 'pilot':
       return '#/pilot';
+    case 'project-strawberry-harvest-assist':
+      return '#/projects/strawberry-harvest-assist';
     case 'who-we-serve':
       return '#/who-we-serve';
     case 'how-we-work':

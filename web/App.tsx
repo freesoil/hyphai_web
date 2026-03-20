@@ -15,6 +15,7 @@ import { WhoWeServePage } from './components/WhoWeServePage';
 import { HowWeWorkPage } from './components/HowWeWorkPage';
 import { AboutPage } from './components/AboutPage';
 import { ContactPage } from './components/ContactPage';
+import { StrawberryHarvestAssistPage } from './components/StrawberryHarvestAssistPage';
 import { Machine, catalogMachines } from './machineData';
 import { type View, type RouteState, parseHashRoute, buildHash } from './routes';
 
@@ -119,6 +120,8 @@ export const App: React.FC = () => {
         return <SolutionsPage onNavigate={handleSetView} logEvent={logEvent} />;
       case 'pilot':
         return <PilotProgramsPage onNavigate={handleSetView} logEvent={logEvent} />;
+      case 'project-strawberry-harvest-assist':
+        return <StrawberryHarvestAssistPage onNavigate={handleSetView} />;
       case 'who-we-serve':
         return <WhoWeServePage onNavigate={handleSetView} />;
       case 'how-we-work':

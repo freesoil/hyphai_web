@@ -11,6 +11,9 @@ describe('parseHashRoute', () => {
   it('parses all new redesign routes', () => {
     expect(parseHashRoute('#/solutions')).toEqual({ view: 'solutions' });
     expect(parseHashRoute('#/pilot')).toEqual({ view: 'pilot' });
+    expect(parseHashRoute('#/projects/strawberry-harvest-assist')).toEqual({
+      view: 'project-strawberry-harvest-assist',
+    });
     expect(parseHashRoute('#/who-we-serve')).toEqual({ view: 'who-we-serve' });
     expect(parseHashRoute('#/how-we-work')).toEqual({ view: 'how-we-work' });
     expect(parseHashRoute('#/about')).toEqual({ view: 'about' });
@@ -46,6 +49,9 @@ describe('buildHash', () => {
   it('builds all page hashes', () => {
     expect(buildHash({ view: 'solutions' })).toBe('#/solutions');
     expect(buildHash({ view: 'pilot' })).toBe('#/pilot');
+    expect(buildHash({ view: 'project-strawberry-harvest-assist' })).toBe(
+      '#/projects/strawberry-harvest-assist'
+    );
     expect(buildHash({ view: 'contact' })).toBe('#/contact');
     expect(buildHash({ view: 'catalog' })).toBe('#/catalog');
   });
@@ -62,7 +68,14 @@ describe('buildHash', () => {
 
 describe('round-trip', () => {
   it('parse then build preserves route', () => {
-    const hashes = ['#/', '#/solutions', '#/contact', '#/catalog', '#/machine/some-slug'];
+    const hashes = [
+      '#/',
+      '#/solutions',
+      '#/projects/strawberry-harvest-assist',
+      '#/contact',
+      '#/catalog',
+      '#/machine/some-slug',
+    ];
     for (const h of hashes) {
       const state = parseHashRoute(h);
       const built = buildHash(state);
